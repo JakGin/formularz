@@ -62,6 +62,11 @@
         type="submit"
         text="Prześlij"
         />
+
+        <v-btn 
+        @click="clearForm"
+        text="Wyczyść formularz"
+        />
     </form>
 </template>
   
@@ -83,6 +88,15 @@ const inputRules = [
     },
 ]
 
+const clearForm = () => {
+    solectwo.value = ''
+    street.value = ''
+    homeNumber.value = ''
+    name.value = ''
+    lastname.value = ''
+    email.value = ''
+}
+
 const HandleSubmit = () => {
     const submitData = {
         solectwo: solectwo.value,
@@ -93,6 +107,14 @@ const HandleSubmit = () => {
         email: email.value,
     }
     console.log(JSON.stringify(submitData, null, 2))
+    
+    if (submitData.solectwo === '' || submitData.street === '' || submitData.homeNumber === '' || submitData.name === '' || submitData.lastname === '' || submitData.email === '') {
+        alert("Wypełnij wszystkie pola")
+    }
+    else {
+        alert("Dziękujemy za wypełnienie formularza")
+        clearForm()
+    }
 }
 
 </script>
