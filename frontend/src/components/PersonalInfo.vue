@@ -2,31 +2,43 @@
     <form @submit.prevent="HandleSubmit">
         <v-text-field
         v-model="name"
+        required
+        :rules="inputRules"
         label="Imię"
         ></v-text-field>
 
         <v-text-field
         v-model="lastname"
+        required
+        :rules="inputRules"
         label="Nazwisko"
         ></v-text-field>
 
         <v-text-field
         v-model="email"
+        required
+        :rules="inputRules"
         label="E-mail"
         ></v-text-field>
 
         <v-text-field
         v-model="solectwo"
+        required
+        :rules="inputRules"
         label="Sołectwo"
         ></v-text-field>
 
         <v-text-field
         v-model="street"
+        required
+        :rules="inputRules"
         label="Ulica"
         ></v-text-field>
 
         <v-text-field
         v-model="homeNumber"
+        required
+        :rules="inputRules"
         label="Numer domu"
         ></v-text-field>
 
@@ -63,6 +75,13 @@ const homeNumber = ref('')
 const name = ref('')
 const lastname = ref('')
 const email = ref('')
+
+const inputRules = [
+    (value: string) => {
+        if (!!value) return true
+        return 'To pole jest wymagane.'
+    },
+]
 
 const HandleSubmit = () => {
     const submitData = {
