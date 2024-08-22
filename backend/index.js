@@ -7,28 +7,55 @@ app.use(express.json())
 
 const prisma = new PrismaClient()
 
+app.get("/users", async (req, res) => {
+  const users = await prisma.user.findMany({
+    include: {
+      submittedData: true,
+    },
+  })
+
+  res.json(users)
+})
+
+app.get("/submitted_data", async (req, res) => {
+  const submittedData = await prisma.submittedData.findMany({
+    include: {
+      user: true,
+    },
+  })
+
+  res.json(submittedData)
+})
+
 app.post("/form", async (req, res) => {
   const {
     name,
     surname,
     email,
 
+    solectwo,
+    city,
+    street,
+    houseNumber,
+
     heatingSource,
     heatingSourcePower,
     heatingSourceHasGrant,
-    heatingSourceGrantAmount,
+    heatingSourceGrantYear,
 
     waterHeatingSource,
     waterHeatingSourcePower,
     waterHeatingSourceHasGrant,
-    waterHeatingSourceGrantAmount,
+    waterHeatingSourceGrantYear,
 
     isInterested,
     interestedInYear,
   } = req.body
-
-  if (!name || !surname || !email) {
-    return res.status(400).send("Please fill all the fields")
+  // Validate the data
+  const { isDataValid, errorMessage } = await validateData(req.body)
+  if (!isDataValid) {
+    res.status(400).json({ message: errorMessage })
+    return
   }
 
   const user = await prisma.user.create({
@@ -38,25 +65,29 @@ app.post("/form", async (req, res) => {
       email,
     },
   })
-
-  console.log(user)
-
   const submittedData = await prisma.submittedData.create({
-    heatingSource,
-    heatingSourcePower,
-    heatingSourceHasGrant,
-    heatingSourceGrantAmount,
+    data: {
+      solectwo,
+      city,
+      street,
+      houseNumber,
 
-    waterHeatingSource,
-    waterHeatingSourcePower,
-    waterHeatingSourceHasGrant,
-    waterHeatingSourceGrantAmount,
+      heatingSource,
+      heatingSourcePower,
+      heatingSourceHasGrant,
+      heatingSourceGrantYear,
 
-    isInterested,
-    interestedInYear,
+      waterHeatingSource,
+      waterHeatingSourcePower,
+      waterHeatingSourceHasGrant,
+      waterHeatingSourceGrantYear,
+
+      isInterested,
+      interestedInYear,
+
+      userId: user.id,
+    },
   })
-
-  console.log(submittedData)
 
   res.send()
 })

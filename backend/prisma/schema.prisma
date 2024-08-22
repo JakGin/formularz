@@ -6,15 +6,15 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id          Int    @id @default(autoincrement())
-  name        String
-  surname     String
-  email       String
+  id      Int    @id @default(autoincrement())
+  name    String
+  surname String
+  email   String @unique
 
   submittedData SubmittedData[]
 }
@@ -27,17 +27,17 @@ model SubmittedData {
   street      String?
   houseNumber String
 
-  heatingSource String
-  heatingSourcePower Float
-  heatingSourceHasGrant Boolean
+  heatingSource          String
+  heatingSourcePower     Float
+  heatingSourceHasGrant  Boolean
   heatingSourceGrantYear Int?
 
-  waterHeatingSource String
-  waterHeatingSourcePower Float
-  waterHeatingSourceHasGrant Boolean
+  waterHeatingSource          String
+  waterHeatingSourcePower     Float
+  waterHeatingSourceHasGrant  Boolean
   waterHeatingSourceGrantYear Int?
 
-  isInterested Boolean
+  isInterested     Boolean
   interestedInYear Int?
 
   userId Int
