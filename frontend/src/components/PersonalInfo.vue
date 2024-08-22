@@ -51,7 +51,7 @@
         @click="clearForm"
         text="Wyczyść formularz"
         />
-        
+
         <v-btn
         class="me-4 personal-info-form-single-button"
         type="submit"
@@ -119,15 +119,13 @@ const HandleSubmit = () => {
 <style scoped>
 
 .personal-info-title {
-  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .personal-info-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 20px;
   gap: 15px;
 }
 
@@ -136,7 +134,7 @@ const HandleSubmit = () => {
 }
 
 .personal-info-form-button {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

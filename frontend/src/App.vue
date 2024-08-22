@@ -6,16 +6,38 @@ import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
 </script>
 
 <template>
-  <header>
-    <div></div>
-  </header>
-
-  <main>
-    <PersonalInfo />
-    <HeatingSourceForm />
-    <HotWaterHeatingSourceForm />
-    <MunicipalHeatingNetwork />
-  </main>
+  <div class="app">
+    <header>
+      <h1 class="app-header-title">Ogrzewanie</h1>
+    </header>
+    <main class="app-main-parts">
+      <PersonalInfo />
+      <HeatingSourceForm />
+      <HotWaterHeatingSourceForm />
+      <MunicipalHeatingNetwork />
+    </main>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app-header-title {
+  text-align: center;
+  font-weight: bold;
+  margin: 40px 0 20px;
+}
+.app-main-parts {
+  margin: 40px;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  gap: 20px;
+}
+</style>

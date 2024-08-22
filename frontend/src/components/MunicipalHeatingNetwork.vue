@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>
+        <h2 class="municipal-heating-network-title">
             Gminna Sieć Ciepłownicza
         </h2>
         <v-checkbox
@@ -30,3 +30,10 @@ const yearRules = [
     (value: string) => (value && !isNaN(Number(value))) || "Rok musi składać się z cyfr.",
 ];
 </script>
+
+<style scoped>
+.municipal-heating-network-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+</style>
