@@ -4,18 +4,18 @@
   >
     <v-row>
       <v-col>
-        <h1>Obecne źródło ogrzewania <br />gospodarstwa domowego</h1>
+        <h1>Obecne źródło ogrzewania <br />ciepłej wody</h1>
       </v-col>
     </v-row>
 
     <v-row class="mx-auto" max-width="300">
       <v-col>
         <v-list density="compact">
-          <v-list-subheader>Wybierz źródło ciepła</v-list-subheader>
+          <v-list-subheader>Wybierz źródło ogrzewania wody</v-list-subheader>
 
           <v-list-item
             v-for="(item, i) in heatingOptions"
-            v-model="selectedItem"
+            v-model="selectedWaterHeatingItem"
             :key="i"
             :value="item.text"
             color="primary"
@@ -32,7 +32,7 @@
     <v-row>
       <v-col>
         <v-text-field
-          v-model="installationPower"
+          v-model="installationWaterHeatingPower"
           label="Moc instalacji (kW)"
           type="number"
           outlined
@@ -43,16 +43,16 @@
     <v-row>
       <v-col>
         <v-checkbox
-          v-model="hasFunding"
+          v-model="hasWaterHeatingFunding"
           label="Czy posiadają Państwo dofinansowanie?"
         ></v-checkbox>
       </v-col>
     </v-row>
 
-    <v-row v-if="hasFunding">
+    <v-row v-if="hasWaterHeatingFunding">
       <v-col>
         <v-text-field
-          v-model="fundingYear"
+          v-model="waterHeatingFundingYear"
           label="Rok otrzymania dofinansowania"
           type="number"
           outlined
@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { ref, defineEmits, watch } from "vue";
 
-const emit = defineEmits(["updateHotWaterHeatingInfo"]);
+const emit = defineEmits(["updateHeatingInfo"]);
 
 const heatingOptions = [
   { text: "Pompa ciepła", icon: "mdi-air-conditioner" },
@@ -75,10 +75,10 @@ const heatingOptions = [
   { text: "Pelet", icon: "mdi-leaf" },
 ];
 
-const selectedItem = ref<string | null>(null);
-const installationPower = ref<number | null>(null);
-const hasFunding = ref<boolean>(false);
-const fundingYear = ref<number | null>(null);
+const selectedWaterHeatingItem = ref<string | null>(null);
+const installationWaterHeatingPower = ref<number | null>(null);
+const hasWaterHeatingFunding = ref<boolean>(false);
+const waterHeatingFundingYear = ref<number | null>(null);
 
 const validateYear = (year: number | null) => {
   const currentYear = new Date().getFullYear();
@@ -87,14 +87,22 @@ const validateYear = (year: number | null) => {
     : `Podaj prawidłowy rok (1900-${currentYear})`;
 };
 
-watch([selectedItem, installationPower, hasFunding, fundingYear], () => {
-  emit("updateHotWaterHeatingInfo", {
-    selectedItem: selectedItem.value,
-    installationPower: installationPower.value,
-    hasFunding: hasFunding.value,
-    fundingYear: fundingYear.value,
-  });
-});
+watch(
+  [
+    selectedWaterHeatingItem,
+    installationWaterHeatingPower,
+    hasWaterHeatingFunding,
+    waterHeatingFundingYear,
+  ],
+  () => {
+    emit("updateHeatingInfo", {
+      selectedItem: selectedWaterHeatingItem.value,
+      installationPower: installationWaterHeatingPower.value,
+      hasFunding: hasWaterHeatingFunding.value,
+      fundingYear: waterHeatingFundingYear.value,
+    });
+  }
+);
 </script>
 
 <style scoped></style>
