@@ -38,9 +38,19 @@ app.get("/api/solectwa", async (req, res) => {
 })
 
 app.get("/api/streets", async (req, res) => {
-  const { street } = req.body
+  const { solectwo } = req.body
+  const streets = await prisma.street.findMany({
+    where: {
+      solectwo: {
+        name: solectwo,
+      },
+    },
+    select: {
+      name: true,
+    },
+  })
 
-  res.json({})
+  res.json(streets)
 })
 
 app.post("/form", async (req, res) => {

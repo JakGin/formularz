@@ -96,5 +96,14 @@ GET http://localhost:3000/api/streets
 Content-Type: application/json
 
 {
+  "solectwo": "JAROSTY"
+}
 
+####
+
+GET http://localhost:3000/api/streets
+Content-Type: application/json
+
+{
+  "solectwo": "NIEMA"
 }
