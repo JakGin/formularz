@@ -23,7 +23,6 @@ model SubmittedData {
   id Int @id @default(autoincrement())
 
   solectwo    String
-  city        String
   street      String?
   houseNumber String
 
@@ -42,4 +41,19 @@ model SubmittedData {
 
   userId Int
   user   User @relation(fields: [userId], references: [id])
+}
+
+model Solectwo {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  streets Street[]
+}
+
+model Street {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  solectwoId Int
+  solectwo   Solectwo @relation(fields: [solectwoId], references: [id])
 }

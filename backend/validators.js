@@ -9,7 +9,6 @@ export const validateData = async (data) => {
     email,
 
     solectwo,
-    city,
     street,
     houseNumber,
 
@@ -33,10 +32,10 @@ export const validateData = async (data) => {
     }
   }
 
-  if (!solectwo || !city || !houseNumber) {
+  if (!solectwo || !houseNumber) {
     return {
       isDataValid: false,
-      errorMessage: "Solectwo, city, street and house number are required",
+      errorMessage: "Solectwo, street and house number are required",
     }
   }
 
@@ -79,15 +78,16 @@ export const validateData = async (data) => {
     },
   })
 
-  if (
-    submittedData.solectwo === solectwo &&
-    submittedData.city === city &&
-    submittedData.street === street &&
-    submittedData.houseNumber === houseNumber
-  ) {
-    return {
-      isDataValid: false,
-      errorMessage: "You have already submitted the form with this address",
+  if (submittedData) {
+    if (
+      submittedData.solectwo === solectwo &&
+      submittedData.street === street &&
+      submittedData.houseNumber === houseNumber
+    ) {
+      return {
+        isDataValid: false,
+        errorMessage: "You have already submitted the form with this address",
+      }
     }
   }
 

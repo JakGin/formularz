@@ -46,7 +46,6 @@ app.post("/form", async (req, res) => {
     email,
 
     solectwo,
-    city,
     street,
     houseNumber,
 
@@ -80,7 +79,6 @@ app.post("/form", async (req, res) => {
   const submittedData = await prisma.submittedData.create({
     data: {
       solectwo,
-      city,
       street,
       houseNumber,
 
