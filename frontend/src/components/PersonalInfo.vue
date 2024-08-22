@@ -1,85 +1,86 @@
 <template>
-    <form @submit.prevent="HandleSubmit">
-        <v-text-field
-        v-model="name"
-        required
-        :rules="inputRules"
-        label="Imię"
-        ></v-text-field>
+    <div>
+        <div>
+            Wprowadź swoje dane
+        </div>
+        <form @submit.prevent="HandleSubmit">
+            <v-text-field
+            v-model="name"
+            required
+            :rules="inputRules"
+            clearable
+            label="Imię"
+            />
 
-        <v-text-field
-        v-model="lastname"
-        required
-        :rules="inputRules"
-        label="Nazwisko"
-        ></v-text-field>
-
-        <v-text-field
-        v-model="email"
-        required
-        :rules="inputRules"
-        label="E-mail"
-        ></v-text-field>
-
-        <v-text-field
-        v-model="solectwo"
-        required
-        :rules="inputRules"
-        label="Sołectwo"
-        ></v-text-field>
-
-        <v-text-field
-        v-model="street"
-        required
-        :rules="inputRules"
-        label="Ulica"
-        ></v-text-field>
-
-        <v-text-field
-        v-model="homeNumber"
-        required
-        :rules="inputRules"
-        label="Numer domu"
-        ></v-text-field>
-
-        <!-- <v-select
-        v-model="select.value.value"
-        :error-messages="select.errorMessage.value"
-        :items="items"
-        label="Select"
-        ></v-select> -->
-
-        <!-- <v-checkbox
-        v-model="checkbox.value.value"
-        :error-messages="checkbox.errorMessage.value"
-        label="Option"
-        type="checkbox"
-        value="1"
-        ></v-checkbox> -->
-
-        <v-btn
-        class="me-4"
-        type="submit"
-        text="Prześlij"
-        />
-
-        <v-btn 
-        @click="clearForm"
-        text="Wyczyść formularz"
-        />
-    </form>
+            <v-text-field
+            v-model="lastname"
+            required
+            :rules="inputRules"
+            clearable
+            label="Nazwisko"
+            />
+            
+            <v-text-field
+            v-model="email"
+            required
+            :rules="inputRules"
+            clearable
+            label="E-mail"
+            />
+            
+            <v-select
+            v-model="solectwo"
+            :items="items"
+            required
+            :rules="inputRules"
+            clearable
+            label="Sołectwo"
+            ></v-select>
+            
+            <v-text-field
+            v-model="street"
+            clearable
+            label="Ulica"
+            />
+            
+            <v-text-field
+            v-model="homeNumber"
+            required
+            :rules="inputRules"
+            clearable
+            label="Numer domu"
+            />
+            
+            <v-btn
+            class="me-4"
+            type="submit"
+            text="Prześlij"
+            />
+            
+            <v-btn 
+            @click="clearForm"
+            text="Wyczyść formularz"
+            />
+        </form>
+    </div>
 </template>
   
   
 <script setup lang="ts">
 import {ref} from 'vue';
 
-const solectwo = ref('')
-const street = ref('')
-const homeNumber = ref('')
 const name = ref('')
 const lastname = ref('')
 const email = ref('')
+const solectwo = ref(null)
+const street = ref('')
+const homeNumber = ref('')
+const items = [
+    'Sołectwo 1',
+    'Sołectwo 2',
+    'Sołectwo 3',
+    'Sołectwo 4',
+]
 
 const inputRules = [
     (value: string) => {
@@ -89,7 +90,7 @@ const inputRules = [
 ]
 
 const clearForm = () => {
-    solectwo.value = ''
+    solectwo.value = null
     street.value = ''
     homeNumber.value = ''
     name.value = ''
@@ -116,7 +117,6 @@ const HandleSubmit = () => {
         clearForm()
     }
 }
-
 </script>
 
 <style scoped></style>
