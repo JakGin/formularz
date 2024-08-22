@@ -86,11 +86,15 @@ Content-Type: application/json
 
 GET http://localhost:3000/submitted_data
 
-GET http://localhost:3000/solectwa
+###
 
-GET http://localhost:3000/solectwa
+GET http://localhost:3000/api/solectwa
+
+###
+
+GET http://localhost:3000/api/streets
 Content-Type: application/json
 
 {
-  
+
 }

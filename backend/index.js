@@ -29,13 +29,17 @@ app.get("/submitted_data", async (req, res) => {
 })
 
 app.get("/api/solectwa", async (req, res) => {
-
-  res.json({})
+  const solectwa = await prisma.solectwo.findMany({
+    select: {
+      name: true,
+    },
+  })
+  res.json(solectwa)
 })
 
 app.get("/api/streets", async (req, res) => {
   const { street } = req.body
-  
+
   res.json({})
 })
 
