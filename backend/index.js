@@ -1,5 +1,5 @@
 import express from "express"
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client"
 
 const app = express()
 
@@ -7,44 +7,58 @@ app.use(express.json())
 
 const prisma = new PrismaClient()
 
-app.get("/", (req, res) => {
-  res.send("Hello, world!")
-})
-
 app.post("/form", async (req, res) => {
   const {
     name,
     surname,
     email,
-    streetName,
-    houseNumber,
-    solectwo,
 
+    heatingSource,
+    heatingSourcePower,
+    heatingSourceHasGrant,
+    heatingSourceGrantAmount,
+
+    waterHeatingSource,
+    waterHeatingSourcePower,
+    waterHeatingSourceHasGrant,
+    waterHeatingSourceGrantAmount,
+
+    isInterested,
+    interestedInYear,
   } = req.body
+
+  if (!name || !surname || !email) {
+    return res.status(400).send("Please fill all the fields")
+  }
 
   const user = await prisma.user.create({
     data: {
       name,
       surname,
       email,
-      address: {
-        create: {
-          streetName,
-          houseNumber,
-          solectwo,
-        },
-      },
     },
   })
+
   console.log(user)
 
-  const submittedData = {
+  const submittedData = await prisma.submittedData.create({
+    heatingSource,
+    heatingSourcePower,
+    heatingSourceHasGrant,
+    heatingSourceGrantAmount,
 
-  }
+    waterHeatingSource,
+    waterHeatingSourcePower,
+    waterHeatingSourceHasGrant,
+    waterHeatingSourceGrantAmount,
 
+    isInterested,
+    interestedInYear,
+  })
 
+  console.log(submittedData)
 
-  res.send(`Got your submission`)
+  res.send()
 })
 
 // Start the server

@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres
+    container_name: posgres_gmina_form
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
+
+networks:
+  db_network:
