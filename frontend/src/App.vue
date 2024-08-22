@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PersonalInfo from "./components/PersonalInfo.vue";
 import HeatingSourceForm from "./components/HeatingSourceForm.vue";
+import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import HeatingSourceForm from "./components/HeatingSourceForm.vue";
   <main>
     <PersonalInfo />
     <HeatingSourceForm />
+    <MunicipalHeatingNetwork />
   </main>
 </template>
 
