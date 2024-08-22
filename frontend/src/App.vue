@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PersonalInfo from "./components/PersonalInfo.vue"
 </script>
 
 <template>
@@ -11,6 +12,7 @@
     <div>
       Formularz
     </div>
+    <PersonalInfo/>
   </main>
 </template>
 
