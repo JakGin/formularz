@@ -1,61 +1,63 @@
 <template>
-  <div class="personal-info">
-    <h1>Wprowadź swoje dane</h1>
-    <form @submit.prevent="HandleSubmit">
+  <div>
+    <h2 class="personal-info-title">Wprowadź swoje dane</h2>
+    <form @submit.prevent="HandleSubmit" class="personal-info-form">
       <v-text-field
-        v-model="name"
-        required
-        :rules="inputRules"
-        clearable
-        label="Imię"
+      v-model="name"
+      required
+      :rules="inputRules"
+      clearable
+      label="Imię"
       />
 
       <v-text-field
-        v-model="lastname"
-        required
-        :rules="inputRules"
-        clearable
-        label="Nazwisko"
+      v-model="lastname"
+      required
+      :rules="inputRules"
+      clearable
+      label="Nazwisko"
       />
 
       <v-text-field
-        v-model="email"
-        required
-        :rules="inputRules"
-        clearable
-        label="E-mail"
+      v-model="email"
+      required
+      :rules="inputRules"
+      clearable
+      label="E-mail"
       />
-
+      
       <v-select
-        v-model="solectwo"
-        :items="items"
-        required
-        :rules="inputRules"
-        clearable
-        label="Sołectwo"
+      v-model="solectwo"
+      :items="items"
+      required
+      :rules="inputRules"
+      clearable
+      label="Sołectwo"
       ></v-select>
 
       <v-text-field v-model="street" clearable label="Ulica" />
 
       <v-text-field
-        v-model="homeNumber"
-        required
-        :rules="inputRules"
-        clearable
-        label="Numer domu"
+      v-model="homeNumber"
+      required
+      :rules="inputRules"
+      clearable
+      label="Numer domu"
       />
-
-      <v-btn
-        class="me-4 personal-info-form-button"
-        type="submit"
-        text="Prześlij"
-      />
-
-      <v-btn
-        class="personal-info-form-button"
+      
+      <div class="personal-info-form-button">
+        <v-btn
+        class="personal-info-form-single-button"
         @click="clearForm"
         text="Wyczyść formularz"
-      />
+        />
+        
+        <v-btn
+        class="me-4 personal-info-form-single-button"
+        type="submit"
+        text="Prześlij"
+        />
+      </div>
     </form>
   </div>
 </template>
@@ -115,21 +117,28 @@ const HandleSubmit = () => {
 </script>
 
 <style scoped>
-.personal-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  gap: 20px;
-}
 
 .personal-info-title {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+.personal-info-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.personal-info-form-single-button {
+  width: 300px;
 }
 
 .personal-info-form-button {
-  margin-top: 40px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 </style>
