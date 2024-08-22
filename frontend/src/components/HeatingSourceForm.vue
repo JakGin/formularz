@@ -1,6 +1,6 @@
 <template>
   <v-container
-    class="d-flex flex-column align-center justify-center text-center"
+    class="mt-10 d-flex flex-column align-center justify-center text-center"
   >
     <v-row>
       <v-col>

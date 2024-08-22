@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PersonalInfo from "./components/PersonalInfo.vue"
+import PersonalInfo from "./components/PersonalInfo.vue";
 import HeatingSourceForm from "./components/HeatingSourceForm.vue";
 </script>
 
@@ -9,12 +9,8 @@ import HeatingSourceForm from "./components/HeatingSourceForm.vue";
   </header>
 
   <main>
-    <div>
-      Formularz
-
-      <HeatingSourceForm />
-    </div>
-    <PersonalInfo/>
+    <PersonalInfo />
+    <HeatingSourceForm />
   </main>
 </template>
 
