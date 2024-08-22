@@ -1,5 +1,6 @@
 import express from "express"
 import { PrismaClient } from "@prisma/client"
+import { validateData } from "./validators.js"
 
 const app = express()
 

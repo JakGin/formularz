@@ -23,5 +23,8 @@ export const validateData = async (data) => {
     interestedInYear,
   } = data
 
-  return true
+  return {
+    isDataValid: true,
+    errorMessage: "",
+  }
 }
