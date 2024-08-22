@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div>
+    <div class="personal-info">
+        <div class="personal-info-title">
             Wprowadź swoje dane
         </div>
         <form @submit.prevent="HandleSubmit">
@@ -52,12 +52,13 @@
             />
             
             <v-btn
-            class="me-4"
+            class="me-4 personal-info-form-button"
             type="submit"
             text="Prześlij"
             />
             
             <v-btn 
+            class="personal-info-form-button"
             @click="clearForm"
             text="Wyczyść formularz"
             />
@@ -119,4 +120,22 @@ const HandleSubmit = () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.personal-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.personal-info-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.personal-info-form-button {
+    margin-top: 40px;
+}
+</style>
