@@ -38,8 +38,35 @@ Content-Type: application/json
   "email": "john.doe@example.com",
 
   "solectwo": "solectwoA",
-  "city": "CityA",
+  "city": "CityB",
   "street": "StreetA",
+  "houseNumber": "1",
+
+
+  "heatingSource": "pelet",
+  "heatingSourcePower": 105,
+  "heatingSourceHasGrant": true,
+  "heatingSourceGrantYear": 2019,
+
+  "waterHeatingSource": "pompa ciepła",
+  "waterHeatingSourcePower": 200,
+  "waterHeatingSourceHasGrant": false,
+
+  "isInterested": false
+}
+
+#### 
+
+POST http://localhost:3000/form
+Content-Type: application/json
+
+{
+  "surname": "John Doe",
+  "email": "john.doe@example.com",
+
+  "solectwo": "solectwoA",
+  "city": "CityB",
+  "street": "StreetC",
   "houseNumber": "1",
 
 

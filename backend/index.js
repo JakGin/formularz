@@ -28,6 +28,17 @@ app.get("/submitted_data", async (req, res) => {
   res.json(submittedData)
 })
 
+app.get("/api/solectwa", async (req, res) => {
+
+  res.json({})
+})
+
+app.get("/api/streets", async (req, res) => {
+  const { street } = req.body
+  
+  res.json({})
+})
+
 app.post("/form", async (req, res) => {
   const {
     name,
