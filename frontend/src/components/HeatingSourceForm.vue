@@ -4,7 +4,7 @@
   >
     <v-row>
       <v-col>
-        <h1>Obecne źródło ogrzewania</h1>
+        <h1>Obecne źródło ogrzewania <br />gospodarstwa domowego</h1>
       </v-col>
     </v-row>
 
