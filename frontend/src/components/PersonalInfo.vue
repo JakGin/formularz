@@ -1,7 +1,7 @@
 // PersonalInfo.vue
 <template>
   <div>
-    <h3>Countries</h3>
+    <h3>Sołectwa</h3>
             <pre>{{ loadingSolectwa }}</pre>
             <!-- <pre>Length: {{ solectwa.length }}</pre>
             <pre>{{ solectwa.slice(0, 3) }}</pre> -->
@@ -32,7 +32,6 @@
         v-model="localFormData.solectwo"
         :items="items"
         required
-        :rules="inputRules"
         clearable
         label="Sołectwo"
       />
@@ -83,6 +82,10 @@ const inputRules = computed(() => [
 
 const items = ref(["Sołectwo 1", "Sołectwo 2", "Sołectwo 3", "Sołectwo 4"]);
 const { solectwa, loading: loadingSolectwa } = useSolectwa();
+// const hehe = solectwa?.map((solectwo) => solectwo.name);
+// console.log("HERE")
+const solectwaArray = solectwa.value?.map((solectwo) => solectwo.name);
+console.log(solectwaArray);
 </script>
 
 

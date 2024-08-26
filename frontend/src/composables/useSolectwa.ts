@@ -3,13 +3,13 @@ import type { TSolectwo } from '../types/Solectwo'
 import { API_BASE_URL } from '../constants/url'
 
 const useSolectwa = () => {
-  const solectwa = ref<TSolectwo | null>(null)
+  const solectwa = ref<TSolectwo[]>([])
   const loading = ref(true)
 
   const fetchSolectwa = async () => {
     try {
       loading.value = true
-      const response = await fetch(`${API_BASE_URL}/api/.................`, {
+      const response = await fetch(`${API_BASE_URL}/api/solectwa`, {
         method: 'GET'
       })
       const data = await response.json()
