@@ -1,8 +1,51 @@
 <script setup lang="ts">
+import { ref, toRaw } from "vue";
 import PersonalInfo from "./components/PersonalInfo.vue";
 import HeatingSourceForm from "./components/HeatingSourceForm.vue";
 import HotWaterHeatingSourceForm from "./components/HotWaterHeatingSourceForm.vue";
 import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
+
+const personalInfo = ref({});
+const heatingInfo = ref({});
+const hotWaterHeatingInfo = ref({});
+
+// Update methods to receive data from child components
+const updatePersonalInfo = (data: any) => {
+  personalInfo.value = data;
+};
+
+const updateHeatingInfo = (data: any) => {
+  heatingInfo.value = data;
+};
+
+const updateHotWaterHeatingInfo = (data: any) => {
+  console.log(data);
+  hotWaterHeatingInfo.value = data;
+};
+
+// Handle form submission
+const handleSubmit = () => {
+  const combinedData = {
+    personalInfo: toRaw(personalInfo.value),
+    heating: heatingInfo.value,
+    hotWaterHeating: toRaw(hotWaterHeatingInfo.value),
+  };
+
+  // Simulate sending the data to the server
+  console.log("Submitting data:", combinedData);
+
+  // Reset forms after submission
+  clearAllForms();
+
+  alert("Dziękujemy za wypełnienie formularza");
+};
+
+// Clear all forms
+const clearAllForms = () => {
+  personalInfo.value = {};
+  heatingInfo.value = {};
+  hotWaterHeatingInfo.value = {};
+};
 </script>
 
 <template>
@@ -12,10 +55,21 @@ import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
     </header>
     <main class="app-main-parts">
       <PersonalInfo />
-      <HeatingSourceForm />
-      <HotWaterHeatingSourceForm />
+      <HeatingSourceForm @updateHeatingInfo="updateHeatingInfo" />
+      <HotWaterHeatingSourceForm
+        @updateHotWaterHeatingInfo="updateHotWaterHeatingInfo"
+      />
       <MunicipalHeatingNetwork />
     </main>
+    <div class="form-buttons">
+      <v-btn class="me-4 personal-info-form-button" @click="handleSubmit">
+        Prześlij
+      </v-btn>
+
+      <v-btn class="personal-info-form-button" @click="clearAllForms">
+        Wyczyść formularz
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -37,7 +91,7 @@ import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
   gap: 20px;
 }
 </style>
