@@ -1,123 +1,86 @@
+// PersonalInfo.vue
 <template>
   <div>
     <h2 class="personal-info-title">Wprowadź swoje dane</h2>
-    <form @submit.prevent="HandleSubmit" class="personal-info-form">
+    <form @submit.prevent="handleSubmit" class="personal-info-form">
       <v-text-field
-      v-model="name"
-      required
-      :rules="inputRules"
-      clearable
-      label="Imię"
+        v-model="localFormData.name"
+        required
+        :rules="inputRules"
+        clearable
+        label="Imię"
       />
-
       <v-text-field
-      v-model="lastname"
-      required
-      :rules="inputRules"
-      clearable
-      label="Nazwisko"
+        v-model="localFormData.lastname"
+        required
+        :rules="inputRules"
+        clearable
+        label="Nazwisko"
       />
-
       <v-text-field
-      v-model="email"
-      required
-      :rules="inputRules"
-      clearable
-      label="E-mail"
+        v-model="localFormData.email"
+        required
+        :rules="inputRules"
+        clearable
+        label="E-mail"
       />
-      
       <v-select
-      v-model="solectwo"
-      :items="items"
-      required
-      :rules="inputRules"
-      clearable
-      label="Sołectwo"
-      ></v-select>
-
-      <v-text-field v-model="street" clearable label="Ulica" />
-
-      <v-text-field
-      v-model="homeNumber"
-      required
-      :rules="inputRules"
-      clearable
-      label="Numer domu"
+        v-model="localFormData.solectwo"
+        :items="items"
+        required
+        :rules="inputRules"
+        clearable
+        label="Sołectwo"
       />
-      
-      <div class="personal-info-form-button">
-        <v-btn
-        class="personal-info-form-single-button"
-        @click="clearForm"
-        text="Wyczyść formularz"
-        />
-
-        <v-btn
-        class="me-4 personal-info-form-single-button"
-        type="submit"
-        text="Prześlij"
-        />
-      </div>
+      <v-text-field v-model="localFormData.street" clearable label="Ulica" />
+      <v-text-field
+        v-model="localFormData.homeNumber"
+        required
+        :rules="inputRules"
+        clearable
+        label="Numer domu"
+      />
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch, computed } from "vue";
+import { PropType } from "vue";
 
-const name = ref("");
-const lastname = ref("");
-const email = ref("");
-const solectwo = ref(null);
-const street = ref("");
-const homeNumber = ref("");
-const items = ["Sołectwo 1", "Sołectwo 2", "Sołectwo 3", "Sołectwo 4"];
-
-const inputRules = [
-  (value: string) => {
-    if (!!value) return true;
-    return "To pole jest wymagane.";
+// Props to accept form data and emit changes
+const props = defineProps({
+  formData: {
+    type: Object as PropType<{
+      name: string;
+      lastname: string;
+      email: string;
+      solectwo: string | null;
+      street: string;
+      homeNumber: string;
+    }>,
+    required: true,
   },
-];
+});
 
-const clearForm = () => {
-  solectwo.value = null;
-  street.value = "";
-  homeNumber.value = "";
-  name.value = "";
-  lastname.value = "";
-  email.value = "";
-};
+const emit = defineEmits(["update:formData"]);
 
-const HandleSubmit = () => {
-  const submitData = {
-    solectwo: solectwo.value,
-    street: street.value,
-    homeNumber: homeNumber.value,
-    name: name.value,
-    lastname: lastname.value,
-    email: email.value,
-  };
-  console.log(JSON.stringify(submitData, null, 2));
+// Create a local copy of formData to bind to form fields
+const localFormData = ref({ ...props.formData });
 
-  if (
-    submitData.solectwo === "" ||
-    submitData.street === "" ||
-    submitData.homeNumber === "" ||
-    submitData.name === "" ||
-    submitData.lastname === "" ||
-    submitData.email === ""
-  ) {
-    alert("Wypełnij wszystkie pola");
-  } else {
-    alert("Dziękujemy za wypełnienie formularza");
-    clearForm();
-  }
-};
+watch(localFormData, (newVal) => {
+  emit("update:formData", newVal);
+}, { deep: true });
+
+const inputRules = computed(() => [
+  (value: string) => !!value || "To pole jest wymagane.",
+]);
+
+const items = ref(["Sołectwo 1", "Sołectwo 2", "Sołectwo 3", "Sołectwo 4"]);
 </script>
 
-<style scoped>
 
+<style scoped>
 .personal-info-title {
   font-weight: bold;
   margin-bottom: 20px;

@@ -1,8 +1,47 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import PersonalInfo from "./components/PersonalInfo.vue";
 import HeatingSourceForm from "./components/HeatingSourceForm.vue";
 import HotWaterHeatingSourceForm from "./components/HotWaterHeatingSourceForm.vue";
 import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
+
+const formData = ref({
+  name: "",
+  lastname: "",
+  email: "",
+  solectwo: null,
+  street: "",
+  homeNumber: "",
+  eagerToJoin: null,
+  yearToJoin: null,
+});
+
+const handleSubmit = () => {
+  console.log(JSON.stringify(formData.value, null, 2));
+
+  if (
+    formData.value.name === "" ||
+    formData.value.lastname === "" ||
+    formData.value.email === "" ||
+    formData.value.solectwo === "" ||
+    formData.value.homeNumber === "" ||
+    (formData.value.eagerToJoin && !formData.value.yearToJoin)
+  ) {
+    alert("Wypełnij wszystkie wymagane pola");
+  } else {
+    alert("Dziękujemy za wypełnienie formularza");
+    formData.value = {
+      name: "",
+      lastname: "",
+      email: "",
+      solectwo: null,
+      street: "",
+      homeNumber: "",
+      eagerToJoin: null,
+      yearToJoin: null,
+    };
+  }
+};
 </script>
 
 <template>
@@ -11,10 +50,19 @@ import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
       <h1 class="app-header-title">Ogrzewanie</h1>
     </header>
     <main class="app-main-parts">
-      <PersonalInfo />
+      <PersonalInfo v-model:formData="formData"/>
       <HeatingSourceForm />
       <HotWaterHeatingSourceForm />
       <MunicipalHeatingNetwork />
+
+      <div>
+        <v-btn
+        class="me-4"
+        type="submit"
+        text="Prześlij"
+        @click="handleSubmit"
+        />
+      </div>
     </main>
   </div>
 </template>
@@ -37,7 +85,6 @@ import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
   gap: 20px;
 }
 </style>
