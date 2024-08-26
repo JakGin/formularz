@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { ref, defineEmits, watch } from "vue";
 
-const emit = defineEmits(["updateHeatingInfo"]);
+const emit = defineEmits(["updateHotWaterHeatingInfo"]);
 
 const heatingOptions = [
   { text: "Pompa ciepła", icon: "mdi-air-conditioner" },
@@ -95,7 +95,7 @@ watch(
     waterHeatingFundingYear,
   ],
   () => {
-    emit("updateHeatingInfo", {
+    emit("updateHotWaterHeatingInfo", {
       selectedItem: selectedWaterHeatingItem.value,
       installationPower: installationWaterHeatingPower.value,
       hasFunding: hasWaterHeatingFunding.value,

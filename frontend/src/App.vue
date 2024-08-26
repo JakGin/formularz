@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRaw } from "vue";
 import PersonalInfo from "./components/PersonalInfo.vue";
 import HeatingSourceForm from "./components/HeatingSourceForm.vue";
 import HotWaterHeatingSourceForm from "./components/HotWaterHeatingSourceForm.vue";
 import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
+
+const personalInfo = ref({});
+const heatingInfo = ref({});
+const hotWaterHeatingInfo = ref({});
 
 const formData = ref({
   name: "",
@@ -16,8 +20,22 @@ const formData = ref({
   yearToJoin: null,
 });
 
+const updateHeatingInfo = (data: any) => {
+  heatingInfo.value = data;
+};
+
+const updateHotWaterHeatingInfo = (data: any) => {
+  console.log(data);
+  hotWaterHeatingInfo.value = data;
+};
+
 const handleSubmit = () => {
   console.log(JSON.stringify(formData.value, null, 2));
+  
+  const combinedData = {
+    heating: heatingInfo.value,
+    hotWaterHeating: toRaw(hotWaterHeatingInfo.value),
+  };
 
   if (
     formData.value.name === "" ||
@@ -50,20 +68,26 @@ const handleSubmit = () => {
       <h1 class="app-header-title">Ogrzewanie</h1>
     </header>
     <main class="app-main-parts">
-      <PersonalInfo v-model:formData="formData"/>
-      <HeatingSourceForm />
-      <HotWaterHeatingSourceForm />
-      <MunicipalHeatingNetwork />
 
-      <div>
-        <v-btn
-        class="me-4"
-        type="submit"
-        text="Prześlij"
-        @click="handleSubmit"
-        />
-      </div>
+      <PersonalInfo v-model:formData="formData"/>
+      <HeatingSourceForm @updateHeatingInfo="updateHeatingInfo" />
+      <HotWaterHeatingSourceForm
+        @updateHotWaterHeatingInfo="updateHotWaterHeatingInfo"
+      />
+      <MunicipalHeatingNetwork v-model:formData="formData"/>
     </main>
+    <div class="form-buttons">
+      <v-btn
+      class="me-4 personal-info-form-button"
+      type="submit"
+      text="Prześlij"
+      @click="handleSubmit"
+      />
+
+      <v-btn class="personal-info-form-button" @click="clearAllForms">
+        Wyczyść formularz
+      </v-btn>
+    </div>
   </div>
 </template>
 
