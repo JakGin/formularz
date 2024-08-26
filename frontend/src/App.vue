@@ -10,14 +10,15 @@ const heatingInfo = ref({});
 const hotWaterHeatingInfo = ref({});
 
 const formData = ref({
+  name: "",
+  lastname: "",
+  email: "",
+  solectwo: null,
+  street: "",
+  homeNumber: "",
   eagerToJoin: null,
   yearToJoin: null,
 });
-
-// Update methods to receive data from child components
-const updatePersonalInfo = (data: any) => {
-  personalInfo.value = data;
-};
 
 const updateHeatingInfo = (data: any) => {
   heatingInfo.value = data;
@@ -28,29 +29,36 @@ const updateHotWaterHeatingInfo = (data: any) => {
   hotWaterHeatingInfo.value = data;
 };
 
-// Handle form submission
 const handleSubmit = () => {
+  console.log(JSON.stringify(formData.value, null, 2));
+  
   const combinedData = {
-    personalInfo: toRaw(personalInfo.value),
     heating: heatingInfo.value,
     hotWaterHeating: toRaw(hotWaterHeatingInfo.value),
   };
 
-  // Simulate sending the data to the server
-  console.log("Submitting data:", combinedData);
-  console.log(JSON.stringify(formData.value, null, 2));
-
-  // Reset forms after submission
-  clearAllForms();
-
-  alert("Dziękujemy za wypełnienie formularza");
-};
-
-// Clear all forms
-const clearAllForms = () => {
-  personalInfo.value = {};
-  heatingInfo.value = {};
-  hotWaterHeatingInfo.value = {};
+  if (
+    formData.value.name === "" ||
+    formData.value.lastname === "" ||
+    formData.value.email === "" ||
+    formData.value.solectwo === "" ||
+    formData.value.homeNumber === "" ||
+    (formData.value.eagerToJoin && !formData.value.yearToJoin)
+  ) {
+    alert("Wypełnij wszystkie wymagane pola");
+  } else {
+    alert("Dziękujemy za wypełnienie formularza");
+    formData.value = {
+      name: "",
+      lastname: "",
+      email: "",
+      solectwo: null,
+      street: "",
+      homeNumber: "",
+      eagerToJoin: null,
+      yearToJoin: null,
+    };
+  }
 };
 </script>
 
@@ -60,7 +68,8 @@ const clearAllForms = () => {
       <h1 class="app-header-title">Ogrzewanie</h1>
     </header>
     <main class="app-main-parts">
-      <PersonalInfo />
+
+      <PersonalInfo v-model:formData="formData"/>
       <HeatingSourceForm @updateHeatingInfo="updateHeatingInfo" />
       <HotWaterHeatingSourceForm
         @updateHotWaterHeatingInfo="updateHotWaterHeatingInfo"
@@ -68,9 +77,12 @@ const clearAllForms = () => {
       <MunicipalHeatingNetwork v-model:formData="formData"/>
     </main>
     <div class="form-buttons">
-      <v-btn class="me-4 personal-info-form-button" @click="handleSubmit">
-        Prześlij
-      </v-btn>
+      <v-btn
+      class="me-4 personal-info-form-button"
+      type="submit"
+      text="Prześlij"
+      @click="handleSubmit"
+      />
 
       <v-btn class="personal-info-form-button" @click="clearAllForms">
         Wyczyść formularz
@@ -97,7 +109,6 @@ const clearAllForms = () => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   gap: 20px;
 }
 </style>
