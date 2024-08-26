@@ -1,47 +1,151 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref, toRaw } from "vue";
+import PersonalInfo from "./components/PersonalInfo.vue";
+import HeatingSourceForm from "./components/HeatingSourceForm.vue";
+import HotWaterHeatingSourceForm from "./components/HotWaterHeatingSourceForm.vue";
+import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
+
+const personalInfo = ref({});
+const heatingInfo = ref({});
+const hotWaterHeatingInfo = ref({});
+
+const formData = ref({
+  name: "",
+  lastname: "",
+  email: "",
+  solectwo: null,
+  street: "",
+  homeNumber: "",
+  eagerToJoin: null,
+  yearToJoin: null,
+
+  heatingSource: "",
+  heatingSourcePower: 0.0,
+  heatingSourceHasGrant: false,
+  heatingSourceGrantYear: null,
+
+  waterHeatingSource: "",
+  waterHeatingSourcePower: 0.0,
+  waterHeatingSourceHasGrant: false,
+  waterHeatingSourceGrantYear: null,
+
+  isInterested: false,
+  isInterestedInYear: null,
+});
+
+const updateHeatingInfo = (data: any) => {
+  (formData.value.heatingSource = data.selectedItem),
+    (formData.value.heatingSourcePower = data.installationPower),
+    (formData.value.heatingSourceHasGrant = data.hasFunding),
+    (formData.value.heatingSourceGrantYear = data.fundingYear);
+  console.log(formData.value);
+};
+
+const updateHotWaterHeatingInfo = (data: any) => {
+  (formData.value.waterHeatingSource = data.selectedItem),
+    (formData.value.waterHeatingSourcePower = data.installationPower),
+    (formData.value.waterHeatingSourceHasGrant = data.hasFunding),
+    (formData.value.waterHeatingSourceGrantYear = data.fundingYear);
+  console.log(formData.value);
+};
+
+const updateMinicipalHeatingInfo = (data: any) => {
+  (formData.value.isInterested = data.isInterested),
+    (formData.value.isInterestedInYear = data.isInterestedInYear);
+  console.log(formData.value);
+};
+
+const handleSubmit = () => {
+  console.log(JSON.stringify(formData.value, null, 2));
+
+  const combinedData = {
+    heating: heatingInfo.value,
+    hotWaterHeating: toRaw(hotWaterHeatingInfo.value),
+  };
+
+  if (
+    formData.value.name === "" ||
+    formData.value.lastname === "" ||
+    formData.value.email === "" ||
+    formData.value.solectwo === "" ||
+    formData.value.homeNumber === "" ||
+    (formData.value.eagerToJoin && !formData.value.yearToJoin)
+  ) {
+    alert("Wypełnij wszystkie wymagane pola");
+  } else {
+    console.log("Dane przesylane do servera: ", formData.value);
+    alert("Dziękujemy za wypełnienie formularza");
+    formData.value = {
+      name: "",
+      lastname: "",
+      email: "",
+      solectwo: null,
+      street: "",
+      homeNumber: "",
+      eagerToJoin: null,
+      yearToJoin: null,
+
+      heatingSource: "",
+      heatingSourcePower: 0.0,
+      heatingSourceHasGrant: false,
+      heatingSourceGrantYear: null,
+
+      waterHeatingSource: "",
+      waterHeatingSourcePower: 0.0,
+      waterHeatingSourceHasGrant: false,
+      waterHeatingSourceGrantYear: null,
+
+      isInterested: false,
+      isInterestedInYear: null,
+    };
+  }
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="app">
+    <header>
+      <h1 class="app-header-title">Ogrzewanie</h1>
+    </header>
+    <main class="app-main-parts">
+      <PersonalInfo v-model:formData="formData" />
+      <HeatingSourceForm @updateHeatingInfo="updateHeatingInfo" />
+      <HotWaterHeatingSourceForm
+        @updateHotWaterHeatingInfo="updateHotWaterHeatingInfo"
+      />
+      <MunicipalHeatingNetwork
+        @updateMunicipalHeatingInfo="updateMinicipalHeatingInfo"
+      />
+    </main>
+    <div class="form-buttons">
+      <v-btn
+        class="me-4 personal-info-form-button"
+        type="submit"
+        text="Prześlij"
+        @click="handleSubmit"
+      />
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.app-header-title {
+  text-align: center;
+  font-weight: bold;
+  margin: 40px 0 20px;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.app-main-parts {
+  margin: 40px;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
 }
 </style>
