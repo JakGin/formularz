@@ -18,20 +18,48 @@ const formData = ref({
   homeNumber: "",
   eagerToJoin: null,
   yearToJoin: null,
+
+  heatingSource: "",
+  heatingSourcePower: 0.0,
+  heatingSourceHasGrant: false,
+  heatingSourceGrantYear: null,
+
+  waterHeatingSource: "",
+  waterHeatingSourcePower: 0.0,
+  waterHeatingSourceHasGrant: false,
+  waterHeatingSourceGrantYear: null,
+
+  isInterested: false,
+  isInterestedInYear: null,
 });
 
 const updateHeatingInfo = (data: any) => {
-  heatingInfo.value = data;
+  (formData.value.heatingSource = data.selectedItem),
+    (formData.value.heatingSourcePower = data.installationPower),
+    (formData.value.heatingSourceHasGrant = data.hasFunding),
+    (formData.value.heatingSourceGrantYear = data.fundingYear);
+  console.log(formData.value);
 };
 
 const updateHotWaterHeatingInfo = (data: any) => {
-  console.log(data);
-  hotWaterHeatingInfo.value = data;
+  (formData.value.waterHeatingSource = data.selectedItem),
+    (formData.value.waterHeatingSourcePower = data.installationPower),
+    (formData.value.waterHeatingSourceHasGrant = data.hasFunding),
+    (formData.value.waterHeatingSourceGrantYear = data.fundingYear);
+  console.log(formData.value);
+};
+
+const handleIsInterestedChange = (value: boolean) => {
+  formData.value.isInterested = value;
+};
+
+const handleYearToJoinChange = (value: string) => {
+  formData.value.isInterestedInYear = value;
 };
 
 const handleSubmit = () => {
   console.log(JSON.stringify(formData.value, null, 2));
-  
+
   const combinedData = {
     heating: heatingInfo.value,
     hotWaterHeating: toRaw(hotWaterHeatingInfo.value),
@@ -47,6 +75,7 @@ const handleSubmit = () => {
   ) {
     alert("Wypełnij wszystkie wymagane pola");
   } else {
+    console.log("Dane przesylane do servera: ", formData.value);
     alert("Dziękujemy za wypełnienie formularza");
     formData.value = {
       name: "",
@@ -57,6 +86,19 @@ const handleSubmit = () => {
       homeNumber: "",
       eagerToJoin: null,
       yearToJoin: null,
+
+      heatingSource: "",
+      heatingSourcePower: 0.0,
+      heatingSourceHasGrant: false,
+      heatingSourceGrantYear: null,
+
+      waterHeatingSource: "",
+      waterHeatingSourcePower: 0.0,
+      waterHeatingSourceHasGrant: false,
+      waterHeatingSourceGrantYear: null,
+
+      isInterested: false,
+      isInterestedInYear: null,
     };
   }
 };
@@ -68,25 +110,20 @@ const handleSubmit = () => {
       <h1 class="app-header-title">Ogrzewanie</h1>
     </header>
     <main class="app-main-parts">
-
-      <PersonalInfo v-model:formData="formData"/>
+      <PersonalInfo v-model:formData="formData" />
       <HeatingSourceForm @updateHeatingInfo="updateHeatingInfo" />
       <HotWaterHeatingSourceForm
         @updateHotWaterHeatingInfo="updateHotWaterHeatingInfo"
       />
-      <MunicipalHeatingNetwork v-model:formData="formData"/>
+      <MunicipalHeatingNetwork v-model:formData="formData" />
     </main>
     <div class="form-buttons">
       <v-btn
-      class="me-4 personal-info-form-button"
-      type="submit"
-      text="Prześlij"
-      @click="handleSubmit"
+        class="me-4 personal-info-form-button"
+        type="submit"
+        text="Prześlij"
+        @click="handleSubmit"
       />
-
-      <v-btn class="personal-info-form-button" @click="clearAllForms">
-        Wyczyść formularz
-      </v-btn>
     </div>
   </div>
 </template>

@@ -19,6 +19,7 @@
             :key="i"
             :value="item.text"
             color="primary"
+            @click="selectHeatingOption(item.text)"
           >
             <template v-slot:prepend>
               <v-icon>{{ item.icon }}</v-icon>
@@ -80,11 +81,17 @@ const installationPower = ref<number | null>(null);
 const hasFunding = ref<boolean>(false);
 const fundingYear = ref<number | null>(null);
 
+console.log(selectedItem);
+
 const validateYear = (year: number | null) => {
   const currentYear = new Date().getFullYear();
   return year && year > 1900 && year <= currentYear
     ? true
     : `Podaj prawidłowy rok (1900-${currentYear})`;
+};
+
+const selectHeatingOption = (option: string) => {
+  selectedItem.value = option;
 };
 
 watch([selectedItem, installationPower, hasFunding, fundingYear], () => {

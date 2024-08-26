@@ -19,6 +19,7 @@
             :key="i"
             :value="item.text"
             color="primary"
+            @click="selectHeatingOption(item.text)"
           >
             <template v-slot:prepend>
               <v-icon>{{ item.icon }}</v-icon>
@@ -85,6 +86,10 @@ const validateYear = (year: number | null) => {
   return year && year > 1900 && year <= currentYear
     ? true
     : `Podaj prawidłowy rok (1900-${currentYear})`;
+};
+
+const selectHeatingOption = (option: string) => {
+  selectedWaterHeatingItem.value = option;
 };
 
 watch(
