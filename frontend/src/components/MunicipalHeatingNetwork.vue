@@ -2,12 +2,12 @@
   <div>
     <h2 class="municipal-heating-network-title">Gminna Sieć Ciepłownicza</h2>
     <v-checkbox
-      v-model="localFormData.eagerToJoin"
+      v-model="isInterested"
       label="Czy jesteś zainteresowany podłączeniem się do gminnej sieci ciepłowniczej?"
     />
     <v-text-field
-      v-if="localFormData.eagerToJoin"
-      v-model="localFormData.yearToJoin"
+      v-if="isInterested"
+      v-model="isInterestedInYear"
       :rules="yearRules"
       label="Rok planowanego dołączenia"
       required
@@ -16,30 +16,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from "vue";
-import { PropType } from "vue";
+import { ref, computed, defineEmits, watch } from "vue";
 
-const props = defineProps({
-  formData: {
-    type: Object as PropType<{
-      eagerToJoin: boolean | null;
-      yearToJoin: string | null;
-    }>,
-    required: true,
-  },
+const emit = defineEmits(["updateMunicipalHeatingInfo"]);
+
+const isInterested = ref<boolean>(false);
+const isInterestedInYear = ref<number | null>(null);
+
+// const emitUpdate = () => {
+//   emit("updateMunicipalHeatingInfo", {
+//     isInterested: isInterested.value,
+//     isInterestedInYear: isInterestedInYear.value,
+//   });
+// };
+
+watch([isInterested, isInterestedInYear], () => {
+  emit("updateMunicipalHeatingInfo", {
+    isInterested: isInterested.value,
+    isInterestedInYear: isInterestedInYear.value,
+  });
 });
-
-const emit = defineEmits(["update:formData"]);
-
-const localFormData = ref({ ...props.formData });
-
-watch(
-  localFormData,
-  (newVal) => {
-    emit("update:formData", newVal);
-  },
-  { deep: true }
-);
 
 const yearRules = computed(() => [
   (value: string) => !!value || "To pole jest wymagane.",

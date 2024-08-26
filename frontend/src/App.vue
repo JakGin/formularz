@@ -49,12 +49,10 @@ const updateHotWaterHeatingInfo = (data: any) => {
   console.log(formData.value);
 };
 
-const handleIsInterestedChange = (value: boolean) => {
-  formData.value.isInterested = value;
-};
-
-const handleYearToJoinChange = (value: string) => {
-  formData.value.isInterestedInYear = value;
+const updateMinicipalHeatingInfo = (data: any) => {
+  (formData.value.isInterested = data.isInterested),
+    (formData.value.isInterestedInYear = data.isInterestedInYear);
+  console.log(formData.value);
 };
 
 const handleSubmit = () => {
@@ -115,7 +113,9 @@ const handleSubmit = () => {
       <HotWaterHeatingSourceForm
         @updateHotWaterHeatingInfo="updateHotWaterHeatingInfo"
       />
-      <MunicipalHeatingNetwork v-model:formData="formData" />
+      <MunicipalHeatingNetwork
+        @updateMunicipalHeatingInfo="updateMinicipalHeatingInfo"
+      />
     </main>
     <div class="form-buttons">
       <v-btn
