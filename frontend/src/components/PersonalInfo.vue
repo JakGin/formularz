@@ -1,8 +1,12 @@
 // PersonalInfo.vue
 <template>
   <div>
+    <h3>Countries</h3>
+            <pre>{{ loadingSolectwa }}</pre>
+            <!-- <pre>Length: {{ solectwa.length }}</pre>
+            <pre>{{ solectwa.slice(0, 3) }}</pre> -->
     <h2 class="personal-info-title">Wprowadź swoje dane</h2>
-    <form @submit.prevent="handleSubmit" class="personal-info-form">
+    <form @submit.prevent class="personal-info-form">
       <v-text-field
         v-model="localFormData.name"
         required
@@ -47,6 +51,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from "vue";
 import { PropType } from "vue";
+import useSolectwa from '../composables/useSolectwa';
 
 // Props to accept form data and emit changes
 const props = defineProps({
@@ -77,6 +82,7 @@ const inputRules = computed(() => [
 ]);
 
 const items = ref(["Sołectwo 1", "Sołectwo 2", "Sołectwo 3", "Sołectwo 4"]);
+const { solectwa, loading: loadingSolectwa } = useSolectwa();
 </script>
 
 
