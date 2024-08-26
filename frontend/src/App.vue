@@ -9,6 +9,11 @@ const personalInfo = ref({});
 const heatingInfo = ref({});
 const hotWaterHeatingInfo = ref({});
 
+const formData = ref({
+  eagerToJoin: null,
+  yearToJoin: null,
+});
+
 // Update methods to receive data from child components
 const updatePersonalInfo = (data: any) => {
   personalInfo.value = data;
@@ -33,6 +38,7 @@ const handleSubmit = () => {
 
   // Simulate sending the data to the server
   console.log("Submitting data:", combinedData);
+  console.log(JSON.stringify(formData.value, null, 2));
 
   // Reset forms after submission
   clearAllForms();
@@ -59,7 +65,7 @@ const clearAllForms = () => {
       <HotWaterHeatingSourceForm
         @updateHotWaterHeatingInfo="updateHotWaterHeatingInfo"
       />
-      <MunicipalHeatingNetwork />
+      <MunicipalHeatingNetwork v-model:formData="formData"/>
     </main>
     <div class="form-buttons">
       <v-btn class="me-4 personal-info-form-button" @click="handleSubmit">
