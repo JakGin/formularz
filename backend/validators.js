@@ -40,9 +40,9 @@ export const validateData = async (data) => {
   }
 
   if (
-    heatingSource === undefined ||
-    heatingSourcePower === undefined ||
-    heatingSourceHasGrant === undefined
+    !heatingSource ||
+    !heatingSourcePower ||
+    !heatingSourceHasGrant
   ) {
     return {
       isDataValid: false,
@@ -51,9 +51,9 @@ export const validateData = async (data) => {
   }
 
   if (
-    waterHeatingSource === undefined ||
-    waterHeatingSourcePower === undefined ||
-    waterHeatingSourceHasGrant === undefined
+    !waterHeatingSource ||
+    !waterHeatingSourcePower ||
+    !waterHeatingSourceHasGrant
   ) {
     return {
       isDataValid: false,
@@ -62,7 +62,7 @@ export const validateData = async (data) => {
     }
   }
 
-  if (isInterested === undefined) {
+  if (!isInterested) {
     return {
       isDataValid: false,
       errorMessage: "Interested information is required",
