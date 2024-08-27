@@ -35,7 +35,13 @@
         clearable
         label="Sołectwo"
       />
-      <v-text-field v-model="localFormData.street" clearable label="Ulica" />
+      <v-select
+        v-model="localFormData.street"
+        :items="streetNames"
+        :loading="loadingStreets"
+        label="Ulica"
+        clearable
+      />
       <v-text-field
         v-model="localFormData.homeNumber"
         required
@@ -51,6 +57,7 @@
 import { ref, watch, computed } from "vue";
 import { PropType } from "vue";
 import useSolectwa from '../composables/useSolectwa';
+import useStreets from '../composables/useStreets';
 
 // Props to accept form data and emit changes
 const props = defineProps({
@@ -82,9 +89,19 @@ const inputRules = computed(() => [
 
 
 const { solectwa, loading: loadingSolectwa } = useSolectwa();
-// Computed property to transform solectwa into an array of strings
+const { streets, loading: loadingStreets, fetchStreets } = useStreets(computed(() => localFormData.value.solectwo));
+
+watch(() => localFormData.value.solectwo, (newSolectwo) => {
+  if (newSolectwo) {
+    fetchStreets(newSolectwo);
+  }
+});
+
 const solectwaNames = computed(() => solectwa.value.map((solectwo) => solectwo.name));
+const streetNames = computed(() => streets.value.map((street) => street.name));
+
 console.log(solectwaNames);
+console.log(streetNames);
 
 </script>
 
