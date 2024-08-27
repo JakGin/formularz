@@ -2,7 +2,7 @@
 <template>
   <div>
     <h3>Sołectwa</h3>
-            <pre>{{ loadingSolectwa }}</pre>
+            <!-- <pre>{{ loadingSolectwa }}</pre> -->
             <!-- <pre>Length: {{ solectwa.length }}</pre>
             <pre>{{ solectwa.slice(0, 3) }}</pre> -->
     <h2 class="personal-info-title">Wprowadź swoje dane</h2>
@@ -30,7 +30,7 @@
       />
       <v-select
         v-model="localFormData.solectwo"
-        :items="items"
+        :items="solectwaNames"
         required
         clearable
         label="Sołectwo"
@@ -80,12 +80,12 @@ const inputRules = computed(() => [
   (value: string) => !!value || "To pole jest wymagane.",
 ]);
 
-const items = ref(["Sołectwo 1", "Sołectwo 2", "Sołectwo 3", "Sołectwo 4"]);
+
 const { solectwa, loading: loadingSolectwa } = useSolectwa();
-// const hehe = solectwa?.map((solectwo) => solectwo.name);
-// console.log("HERE")
-const solectwaArray = solectwa.value?.map((solectwo) => solectwo.name);
-console.log(solectwaArray);
+// Computed property to transform solectwa into an array of strings
+const solectwaNames = computed(() => solectwa.value.map((solectwo) => solectwo.name));
+console.log(solectwaNames);
+
 </script>
 
 
