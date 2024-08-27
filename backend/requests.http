@@ -92,18 +92,11 @@ GET http://localhost:3000/api/solectwa
 
 ###
 
-GET http://localhost:3000/api/streets
+GET http://localhost:3000/api/streets?solectwo=JAROSTY
 Content-Type: application/json
 
-{
-  "solectwo": "JAROSTY"
-}
 
 ####
 
-GET http://localhost:3000/api/streets
+GET http://localhost:3000/api/streets?solectwo=NIEMA
 Content-Type: application/json
-
-{
-  "solectwo": "NIEMA"
-}

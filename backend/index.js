@@ -40,20 +40,29 @@ app.get("/api/solectwa", async (req, res) => {
 })
 
 app.get("/api/streets", async (req, res) => {
-  const { solectwo } = req.body
-  const streets = await prisma.street.findMany({
-    where: {
-      solectwo: {
-        name: solectwo,
-      },
-    },
-    select: {
-      name: true,
-    },
-  })
+  const { solectwo } = req.query;
+  if (!solectwo) {
+    return res.status(400).json({ error: "solectwo query parameter is required" });
+  }
 
-  res.json(streets)
-})
+  try {
+    const streets = await prisma.street.findMany({
+      where: {
+        solectwo: {
+          name: solectwo.toUpperCase(),
+        },
+      },
+      select: {
+        name: true,
+      },
+    });
+
+    res.json(streets);
+  } catch (error) {
+    console.error("Error fetching streets:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 app.post("/form", async (req, res) => {
   const {
