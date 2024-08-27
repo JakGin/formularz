@@ -22,12 +22,12 @@ const formData = ref({
   heatingSource: "",
   heatingSourcePower: 0.0,
   heatingSourceHasGrant: false,
-  heatingSourceGrantYear: null,
+  heatingSourceGrantYear: 0,
 
   waterHeatingSource: "",
   waterHeatingSourcePower: 0.0,
   waterHeatingSourceHasGrant: false,
-  waterHeatingSourceGrantYear: null,
+  waterHeatingSourceGrantYear: 0,
 
   isInterested: false,
   isInterestedInYear: null,
@@ -55,7 +55,7 @@ const updateMinicipalHeatingInfo = (data: any) => {
   console.log(formData.value);
 };
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   console.log(JSON.stringify(formData.value, null, 2));
 
   const combinedData = {
@@ -72,8 +72,55 @@ const handleSubmit = () => {
     (formData.value.eagerToJoin && !formData.value.yearToJoin)
   ) {
     alert("Wypełnij wszystkie wymagane pola");
-  } else {
-    console.log("Dane przesylane do servera: ", formData.value);
+  }
+  const dataToSend = {
+    name: formData.value.name,
+    surname: formData.value.lastname,
+    email: formData.value.email,
+    solectwo: formData.value.solectwo,
+    street: formData.value.street,
+    houseNumber: formData.value.homeNumber,
+    heatingSource: formData.value.heatingSource,
+    heatingSourcePower: parseFloat(formData.value.heatingSourcePower as any),
+    heatingSourceHasGrant: formData.value.heatingSourceHasGrant,
+    heatingSourceGrantYear: formData.value.heatingSourceGrantYear
+      ? parseInt(formData.value.heatingSourceGrantYear as any)
+      : null,
+    waterHeatingSource: formData.value.waterHeatingSource,
+    waterHeatingSourcePower: formData.value.waterHeatingSourcePower
+      ? parseFloat(formData.value.waterHeatingSourcePower as any)
+      : null,
+    waterHeatingSourceHasGrant: formData.value.waterHeatingSourceHasGrant,
+    waterHeatingSourceGrantYear: formData.value.waterHeatingSourceGrantYear
+      ? parseInt(formData.value.waterHeatingSourceGrantYear as any)
+      : null,
+    isInterested: formData.value.isInterested,
+    interestedInYear: formData.value.isInterestedInYear
+      ? parseInt(formData.value.isInterestedInYear as any)
+      : null,
+  };
+  console.log(dataToSend);
+  console.log(JSON.stringify(dataToSend));
+
+  try {
+    const response = await fetch("http://localhost:3000/form", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const responseText = await response.text();
+    console.log("Surowa odpowiedź serwera: ", responseText);
+
+    // const result = JSON.parse(responseText);
+    // console.log("Odpowiedź serwera jako JSON: ", result);
+
     alert("Dziękujemy za wypełnienie formularza");
     formData.value = {
       name: "",
@@ -84,20 +131,22 @@ const handleSubmit = () => {
       homeNumber: "",
       eagerToJoin: null,
       yearToJoin: null,
-
       heatingSource: "",
       heatingSourcePower: 0.0,
       heatingSourceHasGrant: false,
-      heatingSourceGrantYear: null,
-
+      heatingSourceGrantYear: 0,
       waterHeatingSource: "",
       waterHeatingSourcePower: 0.0,
       waterHeatingSourceHasGrant: false,
-      waterHeatingSourceGrantYear: null,
-
+      waterHeatingSourceGrantYear: 0,
       isInterested: false,
       isInterestedInYear: null,
     };
+  } catch (error) {
+    console.error("Błąd podczas wysyłania danych: ", error);
+    alert(
+      "Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później."
+    );
   }
 };
 </script>
