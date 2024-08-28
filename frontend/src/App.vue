@@ -111,8 +111,19 @@ const handleSubmit = async () => {
       body: JSON.stringify(dataToSend),
     });
 
+    console.log("response.status: ", response.status);
+    console.log("response.text(): ", response.text());
+
+    if (response.status === 400) {
+      // throw new Error(`Server error: ${response.status}`);
+      console.log("Błąd serwera: ", response.status);
+      console.log("Odpowiedź serwera: ", response.text());
+    }
+
     if (!response.ok) {
-      throw new Error(`Server error: ${response.status}`);
+      // throw new Error(`Server error: ${response.status}`);
+      console.log("Błąd serwera (!response.ok): ", response.status);
+      console.log("Odpowiedź serwera (!response.ok): ", response.text());
     }
 
     const responseText = await response.text();
@@ -127,7 +138,7 @@ const handleSubmit = async () => {
       lastname: "",
       email: "",
       solectwo: null,
-      street: "",
+      street: null,
       homeNumber: "",
       eagerToJoin: null,
       yearToJoin: null,
@@ -172,6 +183,9 @@ const handleSubmit = async () => {
         type="submit"
         text="Prześlij"
         @click="handleSubmit"
+        color="indigo-darken-3"
+        size="x-large"
+        variant="flat"
       />
     </div>
   </div>
@@ -182,14 +196,16 @@ const handleSubmit = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 70px;
 }
 .app-header-title {
   text-align: center;
   font-weight: bold;
-  margin: 40px 0 20px;
+  font-size: 40px;
+  color: rgb(0, 0, 148);
 }
 .app-main-parts {
-  margin: 40px;
+  margin: 50px 0 50px 0;
   max-width: 900px;
   width: 100%;
   display: flex;
