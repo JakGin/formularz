@@ -42,7 +42,7 @@ export const validateData = async (data) => {
   if (
     !heatingSource ||
     !heatingSourcePower ||
-    !heatingSourceHasGrant
+    heatingSourceHasGrant === undefined || heatingSourceHasGrant === null
   ) {
     return {
       isDataValid: false,
@@ -53,7 +53,7 @@ export const validateData = async (data) => {
   if (
     !waterHeatingSource ||
     !waterHeatingSourcePower ||
-    !waterHeatingSourceHasGrant
+    waterHeatingSourceHasGrant === undefined || waterHeatingSourceHasGrant === null
   ) {
     return {
       isDataValid: false,

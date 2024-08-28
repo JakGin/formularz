@@ -16,8 +16,6 @@ const formData = ref({
   solectwo: null,
   street: null,
   homeNumber: "",
-  eagerToJoin: null,
-  yearToJoin: null,
 
   heatingSource: "",
   heatingSourcePower: 0.0,
@@ -32,6 +30,8 @@ const formData = ref({
   isInterested: false,
   isInterestedInYear: null,
 });
+
+const errorMessage = ref("");
 
 const updateHeatingInfo = (data: any) => {
   (formData.value.heatingSource = data.selectedItem),
@@ -69,9 +69,14 @@ const handleSubmit = async () => {
     formData.value.email === "" ||
     formData.value.solectwo === "" ||
     formData.value.homeNumber === "" ||
-    (formData.value.eagerToJoin && !formData.value.yearToJoin)
-  ) {
+    formData.value.heatingSource === "" ||
+    formData.value.waterHeatingSource === "" ||
+    formData.value.waterHeatingSourcePower === 0.0 ||
+    (formData.value.heatingSourceHasGrant && formData.value.heatingSourceGrantYear === 0) ||
+    (formData.value.waterHeatingSourceHasGrant && formData.value.waterHeatingSourceGrantYear === 0))
+ {
     alert("Wypełnij wszystkie wymagane pola");
+    return
   }
   const dataToSend = {
     name: formData.value.name,
@@ -114,31 +119,30 @@ const handleSubmit = async () => {
     if (!response.ok) {
       console.log("Błąd serwera (!response.ok): ", response.status);
       const responseData = await response.json();
-      console.log("Odpowiedź serwera (!response.ok): ", responseData);
+      errorMessage.value = responseData.error;
+      console.log("Odpowiedź serwera (!response.ok): ", responseData.error);
       return
     }
 
     alert("Dziękujemy za wypełnienie formularza");
-    formData.value = {
-      name: "",
-      lastname: "",
-      email: "",
-      solectwo: null,
-      street: null,
-      homeNumber: "",
-      eagerToJoin: null,
-      yearToJoin: null,
-      heatingSource: "",
-      heatingSourcePower: 0.0,
-      heatingSourceHasGrant: false,
-      heatingSourceGrantYear: 0,
-      waterHeatingSource: "",
-      waterHeatingSourcePower: 0.0,
-      waterHeatingSourceHasGrant: false,
-      waterHeatingSourceGrantYear: 0,
-      isInterested: false,
-      isInterestedInYear: null,
-    };
+    // formData.value = {
+    //   name: "",
+    //   lastname: "",
+    //   email: "",
+    //   solectwo: null,
+    //   street: null,
+    //   homeNumber: "",
+    //   heatingSource: "",
+    //   heatingSourcePower: 0.0,
+    //   heatingSourceHasGrant: false,
+    //   heatingSourceGrantYear: 0,
+    //   waterHeatingSource: "",
+    //   waterHeatingSourcePower: 0.0,
+    //   waterHeatingSourceHasGrant: false,
+    //   waterHeatingSourceGrantYear: 0,
+    //   isInterested: false,
+    //   isInterestedInYear: null,
+    // };
   } catch (error) {
     console.error("Błąd podczas wysyłania danych: ", error);
     alert(
@@ -163,6 +167,9 @@ const handleSubmit = async () => {
         @updateMunicipalHeatingInfo="updateMinicipalHeatingInfo"
       />
     </main>
+    <div v-if="errorMessage" >
+      <p style="color: red; margin-bottom: 16px;">{{ errorMessage }}</p>
+    </div>
     <div class="form-buttons">
       <v-btn
         class="me-4 personal-info-form-button"
