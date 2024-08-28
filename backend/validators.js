@@ -69,7 +69,7 @@ export const validateData = async (data) => {
     }
   }
 
-  // Check if someone didn't submit the form with the same address
+  // Check if someone did submit the form with the same address
   const submittedData = await prisma.submittedData.findFirst({
     where: {
       user: {
@@ -86,7 +86,7 @@ export const validateData = async (data) => {
     ) {
       return {
         isDataValid: false,
-        errorMessage: "You have already submitted the form with this address",
+        errorMessage: "Na podany adres został już złożony formularz przez ten adres e-mail",
       }
     }
   }
