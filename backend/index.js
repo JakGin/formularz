@@ -1,43 +1,43 @@
-import express from "express"
-import cors from "cors"
-import { PrismaClient } from "@prisma/client"
-import { validateData } from "./validators.js"
+import express from "express";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
+import { validateData } from "./validators.js";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 app.get("/users", async (req, res) => {
   const users = await prisma.user.findMany({
     include: {
       submittedData: true,
     },
-  })
+  });
 
-  res.json(users)
-})
+  res.json(users);
+});
 
 app.get("/submitted_data", async (req, res) => {
   const submittedData = await prisma.submittedData.findMany({
     include: {
       user: true,
     },
-  })
+  });
 
-  res.json(submittedData)
-})
+  res.json(submittedData);
+});
 
 app.get("/api/solectwa", async (req, res) => {
   const solectwa = await prisma.solectwo.findMany({
     select: {
       name: true,
     },
-  })
-  res.json(solectwa)
-})
+  });
+  res.json(solectwa);
+});
 
 app.get("/api/streets", async (req, res) => {
   const { solectwo } = req.query;
@@ -86,12 +86,12 @@ app.post("/form", async (req, res) => {
 
     isInterested,
     interestedInYear,
-  } = req.body
+  } = req.body;
   // Validate the data
-  const { isDataValid, errorMessage } = await validateData(req.body)
+  const { isDataValid, errorMessage } = await validateData(req.body);
   if (!isDataValid) {
-    res.status(400).json({ message: errorMessage })
-    return
+    res.status(400).json({ message: errorMessage });
+    return;
   }
 
   const user = await prisma.user.create({
@@ -100,7 +100,7 @@ app.post("/form", async (req, res) => {
       surname,
       email,
     },
-  })
+  });
   const submittedData = await prisma.submittedData.create({
     data: {
       solectwo,
@@ -122,13 +122,13 @@ app.post("/form", async (req, res) => {
 
       userId: user.id,
     },
-  })
+  });
 
-  res.send()
-})
+  res.send();
+});
 
 // Start the server
-const port = 3000
+const port = 3000;
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
-})
+  console.log(`Server is running on http://localhost:${port}`);
+});

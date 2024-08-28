@@ -32,28 +32,36 @@ Content-Type: application/json
 POST http://localhost:3000/form
 Content-Type: application/json
 
-{
-  "name": "John Doe",
-  "surname": "John Doe",
-  "email": "john.doe@example.com",
-
-  "solectwo": "solectwoA",
-  "city": "CityB",
-  "street": "StreetA",
-  "houseNumber": "1",
-
-
-  "heatingSource": "pelet",
-  "heatingSourcePower": 105,
-  "heatingSourceHasGrant": true,
-  "heatingSourceGrantYear": 2019,
-
-  "waterHeatingSource": "pompa ciepła",
-  "waterHeatingSourcePower": 200,
-  "waterHeatingSourceHasGrant": false,
-
-  "isInterested": false
+{"name":"11","surname":"22","email":"33sd4","solectwo":"BABY",
+"street":"44","houseNumber":"55","heatingSource":"Pompa ciepła",
+"heatingSourcePower":1111,"heatingSourceHasGrant":true,
+"heatingSourceGrantYear":2001,"waterHeatingSource":"Piec gazowy",
+"waterHeatingSourcePower":2222,"waterHeatingSourceHasGrant":false,
+"waterHeatingSourceGrantYear":null,"isInterested":true,
+"interestedInYear":2025
 }
+
+# {
+#   "name": "John Doe",
+#   "surname": "John Doe",
+#   "email": "john.doe@example4.com",
+
+#   "solectwo": "solectwoA",
+#   "street": "StreetA",
+#   "houseNumber": "1",
+
+
+#   "heatingSource": "pelet",
+#   "heatingSourcePower": 105,
+#   "heatingSourceHasGrant": true,
+#   "heatingSourceGrantYear": 2019,
+
+#   "waterHeatingSource": "pompa ciepła",
+#   "waterHeatingSourcePower": 200,
+#   "waterHeatingSourceHasGrant": false,
+
+#   "isInterested": false
+# }
 
 #### 
 
