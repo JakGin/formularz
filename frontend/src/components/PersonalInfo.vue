@@ -1,10 +1,6 @@
 // PersonalInfo.vue
 <template>
   <div>
-    <h3>Sołectwa</h3>
-            <!-- <pre>{{ loadingSolectwa }}</pre> -->
-            <!-- <pre>Length: {{ solectwa.length }}</pre>
-            <pre>{{ solectwa.slice(0, 3) }}</pre> -->
     <h2 class="personal-info-title">Wprowadź swoje dane</h2>
     <form @submit.prevent class="personal-info-form">
       <v-text-field
@@ -67,7 +63,7 @@ const props = defineProps({
       lastname: string;
       email: string;
       solectwo: string | null;
-      street: string;
+      street: string | null;
       homeNumber: string;
     }>,
     required: true,

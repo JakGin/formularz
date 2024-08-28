@@ -14,7 +14,7 @@ const formData = ref({
   lastname: "",
   email: "",
   solectwo: null,
-  street: "",
+  street: null,
   homeNumber: "",
   eagerToJoin: null,
   yearToJoin: null,
