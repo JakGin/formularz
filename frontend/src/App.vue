@@ -111,8 +111,19 @@ const handleSubmit = async () => {
       body: JSON.stringify(dataToSend),
     });
 
+    console.log("response.status: ", response.status);
+    console.log("response.text(): ", response.text());
+
+    if (response.status === 400) {
+      // throw new Error(`Server error: ${response.status}`);
+      console.log("Błąd serwera: ", response.status);
+      console.log("Odpowiedź serwera: ", response.text());
+    }
+
     if (!response.ok) {
-      throw new Error(`Server error: ${response.status}`);
+      // throw new Error(`Server error: ${response.status}`);
+      console.log("Błąd serwera (!response.ok): ", response.status);
+      console.log("Odpowiedź serwera (!response.ok): ", response.text());
     }
 
     const responseText = await response.text();
