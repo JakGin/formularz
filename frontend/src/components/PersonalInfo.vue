@@ -1,4 +1,3 @@
-// PersonalInfo.vue
 <template>
   <div>
     <h2 class="personal-info-title">Wprowadź swoje dane</h2>
@@ -6,30 +5,31 @@
       <v-text-field
         v-model="localFormData.name"
         required
-        :rules="inputRules"
+        :rules="nameRules"
         clearable
         label="Imię"
       />
       <v-text-field
         v-model="localFormData.lastname"
         required
-        :rules="inputRules"
+        :rules="lastnameRules"
         clearable
         label="Nazwisko"
       />
       <v-text-field
         v-model="localFormData.email"
         required
-        :rules="inputRules"
+        :rules="emailRules"
         clearable
         label="E-mail"
       />
       <v-select
         v-model="localFormData.solectwo"
         :items="solectwaNames"
-        required
-        clearable
         label="Sołectwo"
+        clearable
+        required
+        :rules="solectwoRules"
       />
       <v-select
         v-model="localFormData.street"
@@ -37,11 +37,13 @@
         :loading="loadingStreets"
         label="Ulica"
         clearable
+        required
+        :rules="streetRules"
       />
       <v-text-field
         v-model="localFormData.homeNumber"
         required
-        :rules="inputRules"
+        :rules="homeNumberRules"
         clearable
         label="Numer domu"
       />
@@ -54,8 +56,8 @@ import { ref, watch, computed } from "vue";
 import { PropType } from "vue";
 import useSolectwa from '../composables/useSolectwa';
 import useStreets from '../composables/useStreets';
+import { nameRules, lastnameRules, emailRules, homeNumberRules, solectwoRules, streetRules } from '../constants/validationRulesPersonalInfo';
 
-// Props to accept form data and emit changes
 const props = defineProps({
   formData: {
     type: Object as PropType<{
@@ -72,17 +74,11 @@ const props = defineProps({
 
 const emit = defineEmits(["update:formData"]);
 
-// Create a local copy of formData to bind to form fields
 const localFormData = ref({ ...props.formData });
 
 watch(localFormData, (newVal) => {
   emit("update:formData", newVal);
 }, { deep: true });
-
-const inputRules = computed(() => [
-  (value: string) => !!value || "To pole jest wymagane.",
-]);
-
 
 const { solectwa, loading: loadingSolectwa } = useSolectwa();
 const { streets, loading: loadingStreets, fetchStreets } = useStreets(computed(() => localFormData.value.solectwo));
@@ -98,9 +94,7 @@ const streetNames = computed(() => streets.value.map((street) => street.name));
 
 console.log(solectwaNames);
 console.log(streetNames);
-
 </script>
-
 
 <style scoped>
 .personal-info-title {
@@ -113,11 +107,9 @@ console.log(streetNames);
   justify-content: center;
   gap: 15px;
 }
-
 .personal-info-form-single-button {
   width: 300px;
 }
-
 .personal-info-form-button {
   margin-top: 20px;
   display: flex;
