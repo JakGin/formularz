@@ -17,18 +17,12 @@
 
 <script setup lang="ts">
 import { ref, computed, defineEmits, watch } from "vue";
+import { yearRules } from "../constants/validationRulesMunicipalHeatingNetwork";
 
 const emit = defineEmits(["updateMunicipalHeatingInfo"]);
 
 const isInterested = ref<boolean>(false);
 const isInterestedInYear = ref<number | null>(null);
-
-// const emitUpdate = () => {
-//   emit("updateMunicipalHeatingInfo", {
-//     isInterested: isInterested.value,
-//     isInterestedInYear: isInterestedInYear.value,
-//   });
-// };
 
 watch([isInterested, isInterestedInYear], () => {
   emit("updateMunicipalHeatingInfo", {
@@ -36,14 +30,6 @@ watch([isInterested, isInterestedInYear], () => {
     isInterestedInYear: isInterestedInYear.value,
   });
 });
-
-const yearRules = computed(() => [
-  (value: string) => !!value || "To pole jest wymagane.",
-  (value: string) =>
-    (value && value.length === 4) || "Rok musi składać się z 4 cyfr.",
-  (value: string) =>
-    (value && !isNaN(Number(value))) || "Rok musi składać się z cyfr.",
-]);
 </script>
 
 <style scoped>
