@@ -110,7 +110,7 @@ const handleSubmit = async (overwrite = false) => {
   console.log(JSON.stringify(dataToSend));
 
   try {
-    const url = `${API_BASE_URL}/form${overwrite ? "/overwrite" : ""}`;
+    const url = `${API_BASE_URL}/form`;
     const method = overwrite ? "PUT" : "POST";
     const response = await fetch(url, {
       method,
