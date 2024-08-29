@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { PrismaClient } from "@prisma/client"
-import { validateData } from "./validators.js"
+import { validateData, validateUpdateData } from "./validators.js"
 
 const app = express()
 
@@ -130,6 +130,97 @@ app.post("/form", async (req, res) => {
     res.send()
   } catch (error) {
     console.error("Error saving the form data:", error)
+    res.status(500).json({ error: "Internal server error" })
+  }
+})
+
+app.put("/form", async (req, res) => {
+  try {
+    const {
+      name,
+      surname,
+      email,
+
+      solectwo,
+      street,
+      houseNumber,
+
+      heatingSource,
+      heatingSourcePower,
+      heatingSourceHasGrant,
+      heatingSourceGrantYear,
+
+      waterHeatingSource,
+      waterHeatingSourcePower,
+      waterHeatingSourceHasGrant,
+      waterHeatingSourceGrantYear,
+
+      isInterested,
+      interestedInYear,
+    } = req.body
+    // Validate the data
+    const { isDataValid, errorMessage } = await validateUpdateData(req.body)
+    if (!isDataValid) {
+      res.status(400).json({ error: errorMessage })
+      return
+    }
+
+    // Check if someone did submit the form with the same address
+    const submittedData = await prisma.submittedData.findFirst({
+      where: {
+        solectwo,
+        street,
+        houseNumber,
+      },
+    })
+
+    if (!submittedData) {
+      res.status(400).json({
+        error: "Na podany adres nie został wcześniej wysłany formularz",
+      })
+      return
+    }
+
+    await prisma.user.update({
+      where: {
+        id: submittedData.userId,
+      },
+      data: {
+        name,
+        surname,
+        email,
+      },
+    })
+
+    await prisma.submittedData.update({
+      where: {
+        id: submittedData.id,
+      },
+      data: {
+        solectwo,
+        street,
+        houseNumber,
+
+        heatingSource,
+        heatingSourcePower,
+        heatingSourceHasGrant,
+        heatingSourceGrantYear,
+
+        waterHeatingSource,
+        waterHeatingSourcePower,
+        waterHeatingSourceHasGrant,
+        waterHeatingSourceGrantYear,
+
+        isInterested,
+        interestedInYear,
+
+        userId: submittedData.userId,
+      },
+    })
+
+    res.send()
+  } catch (error) {
+    console.error("Error updating the form data:", error)
     res.status(500).json({ error: "Internal server error" })
   }
 })
