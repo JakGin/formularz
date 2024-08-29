@@ -4,6 +4,10 @@ import PersonalInfo from "./components/PersonalInfo.vue";
 import HeatingSourceForm from "./components/HeatingSourceForm.vue";
 import HotWaterHeatingSourceForm from "./components/HotWaterHeatingSourceForm.vue";
 import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
+import { API_BASE_URL } from "./constants/url";
+
+const dialog = ref(false);
+const wasFilledInThePast = ref(false);
 
 const personalInfo = ref({});
 const heatingInfo = ref({});
@@ -34,34 +38,29 @@ const formData = ref({
 const errorMessage = ref("");
 
 const updateHeatingInfo = (data: any) => {
-  (formData.value.heatingSource = data.selectedItem),
-    (formData.value.heatingSourcePower = data.installationPower),
-    (formData.value.heatingSourceHasGrant = data.hasFunding),
-    (formData.value.heatingSourceGrantYear = data.fundingYear);
+  formData.value.heatingSource = data.selectedItem;
+  formData.value.heatingSourcePower = data.installationPower;
+  formData.value.heatingSourceHasGrant = data.hasFunding;
+  formData.value.heatingSourceGrantYear = data.fundingYear;
   console.log(formData.value);
 };
 
 const updateHotWaterHeatingInfo = (data: any) => {
-  (formData.value.waterHeatingSource = data.selectedItem),
-    (formData.value.waterHeatingSourcePower = data.installationPower),
-    (formData.value.waterHeatingSourceHasGrant = data.hasFunding),
-    (formData.value.waterHeatingSourceGrantYear = data.fundingYear);
+  formData.value.waterHeatingSource = data.selectedItem;
+  formData.value.waterHeatingSourcePower = data.installationPower;
+  formData.value.waterHeatingSourceHasGrant = data.hasFunding;
+  formData.value.waterHeatingSourceGrantYear = data.fundingYear;
   console.log(formData.value);
 };
 
 const updateMinicipalHeatingInfo = (data: any) => {
-  (formData.value.isInterested = data.isInterested),
-    (formData.value.isInterestedInYear = data.isInterestedInYear);
+  formData.value.isInterested = data.isInterested;
+  formData.value.isInterestedInYear = data.isInterestedInYear;
   console.log(formData.value);
 };
 
-const handleSubmit = async () => {
+const handleSubmit = async (overwrite = false) => {
   console.log(JSON.stringify(formData.value, null, 2));
-
-  const combinedData = {
-    heating: heatingInfo.value,
-    hotWaterHeating: toRaw(hotWaterHeatingInfo.value),
-  };
 
   if (
     formData.value.name === "" ||
@@ -72,12 +71,15 @@ const handleSubmit = async () => {
     formData.value.heatingSource === "" ||
     formData.value.waterHeatingSource === "" ||
     formData.value.waterHeatingSourcePower === 0.0 ||
-    (formData.value.heatingSourceHasGrant && formData.value.heatingSourceGrantYear === 0) ||
-    (formData.value.waterHeatingSourceHasGrant && formData.value.waterHeatingSourceGrantYear === 0))
- {
+    (formData.value.heatingSourceHasGrant &&
+      formData.value.heatingSourceGrantYear === 0) ||
+    (formData.value.waterHeatingSourceHasGrant &&
+      formData.value.waterHeatingSourceGrantYear === 0)
+  ) {
     alert("Wypełnij wszystkie wymagane pola");
-    return
+    return;
   }
+
   const dataToSend = {
     name: formData.value.name,
     surname: formData.value.lastname,
@@ -108,8 +110,10 @@ const handleSubmit = async () => {
   console.log(JSON.stringify(dataToSend));
 
   try {
-    const response = await fetch("http://localhost:3000/form", {
-      method: "POST",
+    const url = `${API_BASE_URL}/form${overwrite ? "/overwrite" : ""}`;
+    const method = overwrite ? "PUT" : "POST";
+    const response = await fetch(url, {
+      method,
       headers: {
         "Content-Type": "application/json",
       },
@@ -117,38 +121,35 @@ const handleSubmit = async () => {
     });
 
     if (!response.ok) {
-      console.log("Błąd serwera (!response.ok): ", response.status);
-      const responseData = await response.json();
-      errorMessage.value = responseData.error;
-      console.log("Odpowiedź serwera (!response.ok): ", responseData.error);
-      return
+      if (response.status === 400) {
+        const responseData = await response.json();
+        errorMessage.value = responseData.error;
+        console.log("Dane już istnieją na serwerze: ", responseData.error);
+        wasFilledInThePast.value = true;
+      } else {
+        throw new Error(`Błąd serwera: ${response.status}`);
+      }
+    } else {
+      alert("Dziękujemy za wypełnienie formularza.");
+      dialog.value = false;
     }
-
-    alert("Dziękujemy za wypełnienie formularza");
-    // formData.value = {
-    //   name: "",
-    //   lastname: "",
-    //   email: "",
-    //   solectwo: null,
-    //   street: null,
-    //   homeNumber: "",
-    //   heatingSource: "",
-    //   heatingSourcePower: 0.0,
-    //   heatingSourceHasGrant: false,
-    //   heatingSourceGrantYear: 0,
-    //   waterHeatingSource: "",
-    //   waterHeatingSourcePower: 0.0,
-    //   waterHeatingSourceHasGrant: false,
-    //   waterHeatingSourceGrantYear: 0,
-    //   isInterested: false,
-    //   isInterestedInYear: null,
-    // };
   } catch (error) {
     console.error("Błąd podczas wysyłania danych: ", error);
     alert(
       "Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później."
     );
+  } finally {
+    errorMessage.value = "";
   }
+};
+
+const submitForm = () => {
+  wasFilledInThePast.value = false;
+  handleSubmit(false);
+};
+
+const submitUpdate = () => {
+  handleSubmit(true);
 };
 </script>
 
@@ -167,19 +168,52 @@ const handleSubmit = async () => {
         @updateMunicipalHeatingInfo="updateMinicipalHeatingInfo"
       />
     </main>
-    <div v-if="errorMessage" >
-      <p style="color: red; margin-bottom: 16px;">{{ errorMessage }}</p>
+
+    <div v-if="errorMessage">
+      <p style="color: red; margin-bottom: 16px">{{ errorMessage }}</p>
     </div>
     <div class="form-buttons">
       <v-btn
         class="me-4 personal-info-form-button"
-        type="submit"
         text="Prześlij"
-        @click="handleSubmit"
+        @click="dialog = true"
         color="indigo-darken-3"
         size="x-large"
         variant="flat"
       />
+    </div>
+
+    <div class="text-center pa-4">
+      <v-dialog v-model="dialog" max-width="500" persistent>
+        <v-card
+          v-if="wasFilledInThePast"
+          prepend-icon="mdi-pencil"
+          title="Czy chcesz przesłać formularz ponownie?"
+          text="Dane już istnieją na serwerze. Czy chcesz je nadpisać?"
+        >
+          <template v-slot:actions>
+            <v-spacer></v-spacer>
+
+            <v-btn @click="dialog = false">
+              Nie przesyłaj ponownie
+            </v-btn>
+
+            <v-btn @click="submitUpdate">
+              Zaktualizuj dane
+            </v-btn>
+          </template>
+        </v-card>
+        <v-card v-else>
+          <v-card-title>Prześlij Formularz</v-card-title>
+          <v-card-text>
+            Czy na pewno chcesz przesłać formularz?
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="dialog = false">Anuluj</v-btn>
+            <v-btn @click="submitForm">Tak, Prześlij</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>
