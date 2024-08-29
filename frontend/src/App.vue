@@ -72,11 +72,13 @@ const handleSubmit = async () => {
     formData.value.heatingSource === "" ||
     formData.value.waterHeatingSource === "" ||
     formData.value.waterHeatingSourcePower === 0.0 ||
-    (formData.value.heatingSourceHasGrant && formData.value.heatingSourceGrantYear === 0) ||
-    (formData.value.waterHeatingSourceHasGrant && formData.value.waterHeatingSourceGrantYear === 0))
- {
+    (formData.value.heatingSourceHasGrant &&
+      formData.value.heatingSourceGrantYear === 0) ||
+    (formData.value.waterHeatingSourceHasGrant &&
+      formData.value.waterHeatingSourceGrantYear === 0)
+  ) {
     alert("Wypełnij wszystkie wymagane pola");
-    return
+    return;
   }
   const dataToSend = {
     name: formData.value.name,
@@ -117,37 +119,44 @@ const handleSubmit = async () => {
     });
 
     if (!response.ok) {
-      console.log("Błąd serwera (!response.ok): ", response.status);
-      const responseData = await response.json();
-      errorMessage.value = responseData.error;
-      console.log("Odpowiedź serwera (!response.ok): ", responseData.error);
-      return
-    }
+      if (response.status === 400) {
+        const responseData = await response.json();
+        errorMessage.value = responseData.error;
+        console.log("Dane już istnieją na serwerze: ", responseData.error);
 
-    alert("Dziękujemy za wypełnienie formularza");
-    // formData.value = {
-    //   name: "",
-    //   lastname: "",
-    //   email: "",
-    //   solectwo: null,
-    //   street: null,
-    //   homeNumber: "",
-    //   heatingSource: "",
-    //   heatingSourcePower: 0.0,
-    //   heatingSourceHasGrant: false,
-    //   heatingSourceGrantYear: 0,
-    //   waterHeatingSource: "",
-    //   waterHeatingSourcePower: 0.0,
-    //   waterHeatingSourceHasGrant: false,
-    //   waterHeatingSourceGrantYear: 0,
-    //   isInterested: false,
-    //   isInterestedInYear: null,
-    // };
+        const confirmOverwrite = confirm(
+          "Dane już istnieją na serwerze. Czy chcesz je nadpisać?"
+        );
+        if (confirmOverwrite) {
+          const overwriteResponse = await fetch("http://localhost:3000/form", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataToSend),
+          });
+
+          if (!overwriteResponse.ok) {
+            throw new Error(`Błąd serwera: ${overwriteResponse.status}`);
+          }
+
+          alert("Dane zostały pomyślnie nadpisane.");
+        } else {
+          alert("Operacja nadpisania danych została anulowana.");
+        }
+      } else {
+        throw new Error(`Błąd serwera: ${response.status}`);
+      }
+    } else {
+      alert("Dziękujemy za wypełnienie formularza.");
+    }
   } catch (error) {
     console.error("Błąd podczas wysyłania danych: ", error);
     alert(
       "Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie później."
     );
+  } finally {
+    errorMessage.value = "";
   }
 };
 </script>
@@ -167,8 +176,8 @@ const handleSubmit = async () => {
         @updateMunicipalHeatingInfo="updateMinicipalHeatingInfo"
       />
     </main>
-    <div v-if="errorMessage" >
-      <p style="color: red; margin-bottom: 16px;">{{ errorMessage }}</p>
+    <div v-if="errorMessage">
+      <p style="color: red; margin-bottom: 16px">{{ errorMessage }}</p>
     </div>
     <div class="form-buttons">
       <v-btn
