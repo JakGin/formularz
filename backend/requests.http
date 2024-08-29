@@ -12,7 +12,6 @@ Content-Type: application/json
   "street": "StreetA",
   "houseNumber": "1",
 
-
   "heatingSource": "pelet",
   "heatingSourcePower": 105,
   "heatingSourceHasGrant": true,
@@ -28,6 +27,35 @@ Content-Type: application/json
 }
 
 ######
+
+PUT http://localhost:3000/form
+Content-Type: application/json
+
+{
+  "name": "Angelina",
+  "surname": "Jolie",
+  "email": "john.doe@example.com",
+
+  "solectwo": "solectwoA",
+  "city": "CityA",
+  "street": "StreetA",
+  "houseNumber": "1",
+
+  "heatingSource": "pompa ciepła",
+  "heatingSourcePower": 105,
+  "heatingSourceHasGrant": true,
+  "heatingSourceGrantYear": 2019,
+
+  "waterHeatingSource": "pompa ciepła",
+  "waterHeatingSourcePower": 200,
+  "waterHeatingSourceHasGrant": true,
+  "waterHeatingSourceGrantYear": 2012,
+
+  "isInterested": true,
+  "interestedInYear": 2031
+}
+
+####
 
 POST http://localhost:3000/form
 Content-Type: application/json
