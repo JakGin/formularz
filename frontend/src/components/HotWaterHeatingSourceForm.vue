@@ -37,6 +37,8 @@
           label="Moc instalacji (kW)"
           type="number"
           outlined
+          required
+          :rules="installationWaterHeatingPowerRules"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -66,6 +68,7 @@
 
 <script setup lang="ts">
 import { ref, defineEmits, watch } from "vue";
+import { installationWaterHeatingPowerRules } from '../constants/validationRulesHotWaterHeatingSource';
 
 const emit = defineEmits(["updateHotWaterHeatingInfo"]);
 
