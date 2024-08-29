@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client"
+import { unescapeLeadingUnderscores } from "typescript"
 
 const prisma = new PrismaClient()
 
@@ -64,7 +65,7 @@ export const validateData = async (data) => {
     }
   }
 
-  if (!isInterested) {
+  if (isInterested === undefined || isInterested === null) {
     return {
       isDataValid: false,
       errorMessage: "Interested information is required",
@@ -156,7 +157,7 @@ export const validateUpdateData = async (data) => {
     }
   }
 
-  if (!isInterested) {
+  if (isInterested === undefined || isInterested === null) {
     return {
       isDataValid: false,
       errorMessage: "Interested information is required",
