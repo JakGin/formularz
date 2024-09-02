@@ -188,26 +188,20 @@ const submitUpdate = () => {
         <v-card
           v-if="wasFilledInThePast"
           prepend-icon="mdi-pencil"
-          title="Czy chcesz przesłać formularz ponownie?"
-          text="Dane już istnieją na serwerze. Czy chcesz je nadpisać?"
+          title="Dla twojego adresu zostaly juz przeslane dane"
+          text="Czy chcesz przesłać formularz ponownie? "
         >
           <template v-slot:actions>
             <v-spacer></v-spacer>
 
-            <v-btn @click="dialog = false">
-              Nie przesyłaj ponownie
-            </v-btn>
+            <v-btn @click="dialog = false"> Nie przesyłaj ponownie </v-btn>
 
-            <v-btn @click="submitUpdate">
-              Zaktualizuj dane
-            </v-btn>
+            <v-btn @click="submitUpdate"> Prześlij </v-btn>
           </template>
         </v-card>
         <v-card v-else>
           <v-card-title>Prześlij Formularz</v-card-title>
-          <v-card-text>
-            Czy na pewno chcesz przesłać formularz?
-          </v-card-text>
+          <v-card-text> Czy na pewno chcesz przesłać formularz? </v-card-text>
           <v-card-actions>
             <v-btn @click="dialog = false">Anuluj</v-btn>
             <v-btn @click="submitForm">Tak, Prześlij</v-btn>
