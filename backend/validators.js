@@ -75,6 +75,7 @@ export const validateData = async (data) => {
   // Check if someone did submit the form with the same house address
   const submittedData = await prisma.submittedData.findFirst({
     where: {
+      email,
       solectwo,
       street,
       houseNumber,

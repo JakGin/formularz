@@ -10,17 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id      Int    @id @default(autoincrement())
-  name    String
-  surname String
-  email   String @unique
-
-  submittedData SubmittedData[]
-}
-
 model SubmittedData {
   id Int @id @default(autoincrement())
+
+  name    String
+  surname String
+  email   String
 
   solectwo    String
   street      String?
@@ -38,9 +33,6 @@ model SubmittedData {
 
   isInterested     Boolean
   interestedInYear Int?
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
 }
 
 model Solectwo {

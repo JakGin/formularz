@@ -10,22 +10,8 @@ app.use(cors())
 
 const prisma = new PrismaClient()
 
-app.get("/users", async (req, res) => {
-  const users = await prisma.user.findMany({
-    include: {
-      submittedData: true,
-    },
-  })
-
-  res.json(users)
-})
-
 app.get("/submitted_data", async (req, res) => {
-  const submittedData = await prisma.submittedData.findMany({
-    include: {
-      user: true,
-    },
-  })
+  const submittedData = await prisma.submittedData.findMany()
 
   res.json(submittedData)
 })
@@ -40,11 +26,9 @@ app.get("/api/solectwa", async (req, res) => {
 })
 
 app.get("/api/streets", async (req, res) => {
-  const { solectwo } = req.query
+  const { solectwo } = req.query;
   if (!solectwo) {
-    return res
-      .status(400)
-      .json({ error: "solectwo query parameter is required" })
+    return res.status(400).json({ error: "solectwo query parameter is required" });
   }
 
   try {
@@ -57,14 +41,14 @@ app.get("/api/streets", async (req, res) => {
       select: {
         name: true,
       },
-    })
+    });
 
-    res.json(streets)
+    res.json(streets);
   } catch (error) {
-    console.error("Error fetching streets:", error)
-    res.status(500).json({ error: "Internal server error" })
+    console.error("Error fetching streets:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-})
+});
 
 app.post("/form", async (req, res) => {
   try {
@@ -97,15 +81,12 @@ app.post("/form", async (req, res) => {
       return
     }
 
-    const user = await prisma.user.create({
+    const submittedData = await prisma.submittedData.create({
       data: {
         name,
         surname,
         email,
-      },
-    })
-    const submittedData = await prisma.submittedData.create({
-      data: {
+
         solectwo,
         street,
         houseNumber,
@@ -122,8 +103,6 @@ app.post("/form", async (req, res) => {
 
         isInterested,
         interestedInYear,
-
-        userId: user.id,
       },
     })
 
@@ -168,6 +147,7 @@ app.put("/form", async (req, res) => {
     // Check if someone did submit the form with the same address
     const submittedData = await prisma.submittedData.findFirst({
       where: {
+        email,
         solectwo,
         street,
         houseNumber,
@@ -181,22 +161,15 @@ app.put("/form", async (req, res) => {
       return
     }
 
-    await prisma.user.update({
-      where: {
-        id: submittedData.userId,
-      },
-      data: {
-        name,
-        surname,
-        email,
-      },
-    })
-
     await prisma.submittedData.update({
       where: {
         id: submittedData.id,
       },
       data: {
+        name,
+        surname,
+        email,
+
         solectwo,
         street,
         houseNumber,
@@ -213,8 +186,6 @@ app.put("/form", async (req, res) => {
 
         isInterested,
         interestedInYear,
-
-        userId: submittedData.userId,
       },
     })
 
