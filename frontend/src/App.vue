@@ -124,14 +124,15 @@ const handleSubmit = async (overwrite = false) => {
       if (response.status === 400) {
         const responseData = await response.json();
         errorMessage.value = responseData.error;
-        console.log("Dane już istnieją na serwerze: ", responseData.error);
+        console.log("Dane już istnieją na serwerze: \n", responseData.error);
         wasFilledInThePast.value = true;
       } else {
         throw new Error(`Błąd serwera: ${response.status}`);
       }
     } else {
-      alert("Dziękujemy za wypełnienie formularza.");
       dialog.value = false;
+      alert("Dziękujemy za wypełnienie formularza.");
+      wasFilledInThePast.value = false;
     }
   } catch (error) {
     console.error("Błąd podczas wysyłania danych: ", error);
@@ -143,13 +144,14 @@ const handleSubmit = async (overwrite = false) => {
   }
 };
 
-const submitForm = () => {
-  wasFilledInThePast.value = false;
-  handleSubmit(false);
+const submitForm = (wasfilled: boolean) => {
+  wasFilledInThePast.value = wasfilled;
+  handleSubmit(wasFilledInThePast.value);
 };
 
-const submitUpdate = () => {
-  handleSubmit(true);
+const submitUpdate = (wasfilled: boolean) => {
+  wasFilledInThePast.value = wasfilled;
+  handleSubmit(wasFilledInThePast.value);
 };
 </script>
 
@@ -188,23 +190,29 @@ const submitUpdate = () => {
         <v-card
           v-if="wasFilledInThePast"
           prepend-icon="mdi-pencil"
-          title="Dla twojego adresu zostaly juz przeslane dane"
-          text="Czy chcesz przesłać formularz ponownie? "
+          title="Czy chcesz przesłać formularz ponownie?"
+          text="Dane już istnieją na serwerze. Czy chcesz je nadpisać?"
         >
           <template v-slot:actions>
             <v-spacer></v-spacer>
 
-            <v-btn @click="dialog = false"> Nie przesyłaj ponownie </v-btn>
+            <v-btn @click="dialog = false">
+              Nie przesyłaj ponownie
+            </v-btn>
 
-            <v-btn @click="submitUpdate"> Prześlij </v-btn>
+            <v-btn @click="submitUpdate(wasFilledInThePast)">
+              Zaktualizuj dane
+            </v-btn>
           </template>
         </v-card>
         <v-card v-else>
           <v-card-title>Prześlij Formularz</v-card-title>
-          <v-card-text> Czy na pewno chcesz przesłać formularz? </v-card-text>
+          <v-card-text>
+            Czy na pewno chcesz przesłać formularz?
+          </v-card-text>
           <v-card-actions>
             <v-btn @click="dialog = false">Anuluj</v-btn>
-            <v-btn @click="submitForm">Tak, Prześlij</v-btn>
+            <v-btn @click="submitForm(wasFilledInThePast)">Tak, Prześlij</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
