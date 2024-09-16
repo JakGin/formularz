@@ -1,0 +1,55 @@
+-- Locations
+INSERT INTO "Solectwo" (name) VALUES ('BABY');
+INSERT INTO "Solectwo" (name) VALUES ('BIAŁKOWICE');
+INSERT INTO "Solectwo" (name) VALUES ('GAJKOWICE');
+INSERT INTO "Solectwo" (name) VALUES ('GAZOMIA NOWA');
+INSERT INTO "Solectwo" (name) VALUES ('GAZOMIA STARA');
+INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE PIERWSZE');
+INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE DRUGIE');
+INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE DRUGIE - POWĘZINY');
+INSERT INTO "Solectwo" (name) VALUES ('JAROSTY');
+INSERT INTO "Solectwo" (name) VALUES ('KARLIN');
+INSERT INTO "Solectwo" (name) VALUES ('KIEŁCZÓWKA');
+INSERT INTO "Solectwo" (name) VALUES ('KOSÓW');
+INSERT INTO "Solectwo" (name) VALUES ('MICHAŁÓW');
+INSERT INTO "Solectwo" (name) VALUES ('MOSZCZENICA');
+INSERT INTO "Solectwo" (name) VALUES ('MOSZCZENICA OSIEDLE');
+INSERT INTO "Solectwo" (name) VALUES ('MOSZCZENICA WOLA');
+INSERT INTO "Solectwo" (name) VALUES ('PODOLIN');
+INSERT INTO "Solectwo" (name) VALUES ('POMYKÓW');
+INSERT INTO "Solectwo" (name) VALUES ('RACIBOROWICE');
+INSERT INTO "Solectwo" (name) VALUES ('RAKÓW');
+INSERT INTO "Solectwo" (name) VALUES ('RĘKORAJ');
+INSERT INTO "Solectwo" (name) VALUES ('SIEROSŁAW');
+INSERT INTO "Solectwo" (name) VALUES ('SROCK');
+
+-- Streets
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Brzozowa', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Cicha', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Dworcowa', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Kolejarzy', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Piotrkowska', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Polna', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Rzemieślnicza', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Sieradzka', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Spacerowa', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Sportowa', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Szkolna', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Świerkowa', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Wąska', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Wolborska', 1);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Zielona', 1);
+
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Kolejowa', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Kwiatowa', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Leśna', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Łąkowa', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Mariana Grabińskiego', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Miła', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Nowa', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Południowa', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Słoneczna', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('św. Jana Pawła II', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Turystyczna', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Ustronna', 9);
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Żeńców', 9);
