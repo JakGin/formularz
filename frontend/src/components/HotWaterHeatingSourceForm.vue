@@ -1,12 +1,10 @@
 <template>
-  <v-container
-    class="mt-10 d-flex flex-column align-center justify-center text-center"
-  >
-    <v-row>
-      <v-col>
-        <h2>Obecne źródło ogrzewania ciepłej wody</h2>
-      </v-col>
-    </v-row>
+  <v-container class="mt-10 d-flex flex-column">
+    <h2
+      class="justify-start justify-items-start content-start text-left heating-source-form-title"
+    >
+      Obecne źródło ogrzewania ciepłej wody
+    </h2>
 
     <v-row class="mx-auto" max-width="300">
       <v-col>
@@ -27,6 +25,17 @@
             <v-list-item-title v-text="item.text"></v-list-item-title>
           </v-list-item>
         </v-list>
+      </v-col>
+    </v-row>
+
+    <v-row v-if="selectedWaterHeatingItem === 'Inne'">
+      <v-col>
+        <v-text-field
+          v-model="otherWaterHeatingSource"
+          label="Inne źródło ogrzewania"
+          outlined
+          required
+        ></v-text-field>
       </v-col>
     </v-row>
 
@@ -56,7 +65,16 @@
       <v-col>
         <v-text-field
           v-model="waterHeatingFundingYear"
-          label="Rok otrzymania dofinansowania + (w osobnym oknie) Rok trwałości dofinansowania"
+          label="Rok otrzymania dofinansowania"
+          type="number"
+          outlined
+          :rules="[validateYear]"
+        ></v-text-field>
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="waterHeatingLastFundingYear"
+          label="Rok trwałości dofinansowania"
           type="number"
           outlined
           :rules="[validateYear]"
@@ -67,33 +85,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits, watch } from "vue";
-import { installationWaterHeatingPowerRules } from '../constants/validationRulesHotWaterHeatingSource';
+import { ref, defineEmits, watch } from "vue"
+import { installationWaterHeatingPowerRules } from "../constants/validationRulesHotWaterHeatingSource"
 
-const emit = defineEmits(["updateHotWaterHeatingInfo"]);
+const emit = defineEmits(["updateHotWaterHeatingInfo"])
 
 const heatingOptions = [
   { text: "Pompa ciepła", icon: "mdi-air-conditioner" },
+  { text: "Boiler", icon: "mdi-water-boiler" },
+  { text: "Piec elektryczny", icon: "mdi-radiator" },
   { text: "Piec gazowy", icon: "mdi-fire" },
-  { text: "Eko groszek", icon: "mdi-fire" },
+  { text: "Eko groszek", icon: "mdi-sack" },
   { text: "Pelet", icon: "mdi-leaf" },
-];
+  { text: "Inne", icon: "mdi-help-circle-outline" },
+]
 
-const selectedWaterHeatingItem = ref<string | null>(null);
-const installationWaterHeatingPower = ref<number | null>(null);
-const hasWaterHeatingFunding = ref<boolean>(false);
-const waterHeatingFundingYear = ref<number | null>(null);
+const selectedWaterHeatingItem = ref<string | null>(null)
+const otherWaterHeatingSource = ref<string | null>(null)
+const installationWaterHeatingPower = ref<number | null>(null)
+const hasWaterHeatingFunding = ref<boolean>(false)
+const waterHeatingFundingYear = ref<number | null>(null)
+const waterHeatingLastFundingYear = ref<number | null>(null)
 
 const validateYear = (year: number | null) => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear() + 50
   return year && year > 1900 && year <= currentYear
     ? true
-    : `Podaj prawidłowy rok (1900-${currentYear})`;
-};
+    : `Podaj prawidłowy rok (1900-${currentYear})`
+}
 
 const selectHeatingOption = (option: string) => {
-  selectedWaterHeatingItem.value = option;
-};
+  selectedWaterHeatingItem.value = option
+  if (option !== "Inne") {
+    otherWaterHeatingSource.value = null
+  }
+}
 
 watch(
   [
@@ -101,16 +127,22 @@ watch(
     installationWaterHeatingPower,
     hasWaterHeatingFunding,
     waterHeatingFundingYear,
+    waterHeatingLastFundingYear,
+    otherWaterHeatingSource,
   ],
   () => {
     emit("updateHotWaterHeatingInfo", {
-      selectedItem: selectedWaterHeatingItem.value,
+      selectedItem:
+        selectedWaterHeatingItem.value === "Inne"
+          ? otherWaterHeatingSource.value
+          : selectedWaterHeatingItem.value,
       installationPower: installationWaterHeatingPower.value,
       hasFunding: hasWaterHeatingFunding.value,
       fundingYear: waterHeatingFundingYear.value,
-    });
+      fundingLastYear: waterHeatingLastFundingYear.value,
+    })
   }
-);
+)
 </script>
 
 <style scoped></style>
