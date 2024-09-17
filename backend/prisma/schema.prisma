@@ -25,14 +25,15 @@ model SubmittedData {
   heatingSourcePower     Float
   heatingSourceHasGrant  Boolean
   heatingSourceGrantYear Int?
+  heatingSourceLastYear  Int?
 
   waterHeatingSource          String
   waterHeatingSourcePower     Float
   waterHeatingSourceHasGrant  Boolean
   waterHeatingSourceGrantYear Int?
+  waterHeatingSourceLastYear  Int?
 
-  isInterested     Boolean
-  interestedInYear Int?
+  isInterested     Boolean?
 }
 
 model Solectwo {

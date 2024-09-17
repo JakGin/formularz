@@ -17,14 +17,15 @@ export const validateData = async (data) => {
     heatingSourcePower,
     heatingSourceHasGrant,
     heatingSourceGrantYear,
+    heatingSourceLastYear,
 
     waterHeatingSource,
     waterHeatingSourcePower,
     waterHeatingSourceHasGrant,
     waterHeatingSourceGrantYear,
+    waterHeatingSourceLastYear,
 
     isInterested,
-    interestedInYear,
   } = data
   if (!name || !surname || !email) {
     return {
@@ -62,13 +63,6 @@ export const validateData = async (data) => {
       isDataValid: false,
       errorMessage:
         "Water heating source, power and grant information are required",
-    }
-  }
-
-  if (isInterested === undefined || isInterested === null) {
-    return {
-      isDataValid: false,
-      errorMessage: "Interested information is required",
     }
   }
 
@@ -110,14 +104,15 @@ export const validateUpdateData = async (data) => {
     heatingSourcePower,
     heatingSourceHasGrant,
     heatingSourceGrantYear,
+    heatingSourceLastYear,
 
     waterHeatingSource,
     waterHeatingSourcePower,
     waterHeatingSourceHasGrant,
     waterHeatingSourceGrantYear,
+    waterHeatingSourceLastYear,
 
     isInterested,
-    interestedInYear,
   } = data
   if (!name || !surname || !email) {
     return {
@@ -155,13 +150,6 @@ export const validateUpdateData = async (data) => {
       isDataValid: false,
       errorMessage:
         "Water heating source, power and grant information are required",
-    }
-  }
-
-  if (isInterested === undefined || isInterested === null) {
-    return {
-      isDataValid: false,
-      errorMessage: "Interested information is required",
     }
   }
 
