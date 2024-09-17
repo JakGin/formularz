@@ -5,6 +5,8 @@ import HeatingSourceForm from "./components/HeatingSourceForm.vue";
 import HotWaterHeatingSourceForm from "./components/HotWaterHeatingSourceForm.vue";
 import MunicipalHeatingNetwork from "./components/MunicipalHeatingNetwork.vue";
 import { API_BASE_URL } from "./constants/url";
+import initData from "./constants/initData";
+import type { TInputData } from "./types/InputData";
 
 const dialog = ref(false);
 const wasFilledInThePast = ref(false);
@@ -13,27 +15,7 @@ const personalInfo = ref({});
 const heatingInfo = ref({});
 const hotWaterHeatingInfo = ref({});
 
-const formData = ref({
-  name: "",
-  lastname: "",
-  email: "",
-  solectwo: null,
-  street: null,
-  homeNumber: "",
-
-  heatingSource: "",
-  heatingSourcePower: 0.0,
-  heatingSourceHasGrant: false,
-  heatingSourceGrantYear: 0,
-
-  waterHeatingSource: "",
-  waterHeatingSourcePower: 0.0,
-  waterHeatingSourceHasGrant: false,
-  waterHeatingSourceGrantYear: 0,
-
-  isInterested: false,
-  isInterestedInYear: null,
-});
+const formData = ref<TInputData>({ ...initData });
 
 const errorMessage = ref("");
 
@@ -57,6 +39,11 @@ const updateMinicipalHeatingInfo = (data: any) => {
   formData.value.isInterested = data.isInterested;
   formData.value.isInterestedInYear = data.isInterestedInYear;
   console.log(formData.value);
+};
+
+const resetData = () => {
+  console.log("Resetting data");
+  Object.assign(formData.value, initData);
 };
 
 const handleSubmit = async (overwrite = false) => {
@@ -133,6 +120,7 @@ const handleSubmit = async (overwrite = false) => {
       dialog.value = false;
       alert("Dziękujemy za wypełnienie formularza.");
       wasFilledInThePast.value = false;
+      resetData();
     }
   } catch (error) {
     console.error("Błąd podczas wysyłania danych: ", error);
@@ -158,7 +146,7 @@ const submitUpdate = (wasfilled: boolean) => {
 <template>
   <div class="app">
     <header>
-      <h1 class="app-header-title">Ogrzewanie</h1>
+      <h1 class="app-header-title">Formularz dotyczący ogrzewania</h1>
     </header>
     <main class="app-main-parts">
       <PersonalInfo v-model:formData="formData" />
@@ -191,7 +179,8 @@ const submitUpdate = (wasfilled: boolean) => {
           v-if="wasFilledInThePast"
           prepend-icon="mdi-pencil"
           title="Czy chcesz przesłać formularz ponownie?"
-          text="Dane już istnieją na serwerze. Czy chcesz je nadpisać?"
+          text="Formularz z podanym mailem i adresem został już wypełniony.
+          Czy na pewno chcesz nadpisać wprowadzone dane?"
         >
           <template v-slot:actions>
             <v-spacer></v-spacer>
