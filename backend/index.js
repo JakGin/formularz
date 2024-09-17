@@ -65,14 +65,15 @@ app.post("/form", async (req, res) => {
       heatingSourcePower,
       heatingSourceHasGrant,
       heatingSourceGrantYear,
+      heatingSourceLastYear,
 
       waterHeatingSource,
       waterHeatingSourcePower,
       waterHeatingSourceHasGrant,
       waterHeatingSourceGrantYear,
+      waterHeatingSourceLastYear,
 
       isInterested,
-      interestedInYear,
     } = req.body
     // Validate the data
     const { isDataValid, errorMessage } = await validateData(req.body)
@@ -95,14 +96,15 @@ app.post("/form", async (req, res) => {
         heatingSourcePower,
         heatingSourceHasGrant,
         heatingSourceGrantYear,
+        heatingSourceLastYear,
 
         waterHeatingSource,
         waterHeatingSourcePower,
         waterHeatingSourceHasGrant,
         waterHeatingSourceGrantYear,
+        waterHeatingSourceLastYear,
 
         isInterested,
-        interestedInYear,
       },
     })
 
@@ -128,14 +130,15 @@ app.put("/form", async (req, res) => {
       heatingSourcePower,
       heatingSourceHasGrant,
       heatingSourceGrantYear,
+      heatingSourceLastYear,
 
       waterHeatingSource,
       waterHeatingSourcePower,
       waterHeatingSourceHasGrant,
       waterHeatingSourceGrantYear,
+      waterHeatingSourceLastYear,
 
       isInterested,
-      interestedInYear,
     } = req.body
     // Validate the data
     const { isDataValid, errorMessage } = await validateUpdateData(req.body)
@@ -178,14 +181,15 @@ app.put("/form", async (req, res) => {
         heatingSourcePower,
         heatingSourceHasGrant,
         heatingSourceGrantYear,
+        heatingSourceLastYear,
 
         waterHeatingSource,
         waterHeatingSourcePower,
         waterHeatingSourceHasGrant,
         waterHeatingSourceGrantYear,
+        waterHeatingSourceLastYear,
 
         isInterested,
-        interestedInYear,
       },
     })
 

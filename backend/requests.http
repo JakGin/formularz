@@ -7,8 +7,7 @@ Content-Type: application/json
   "surname": "John Doe",
   "email": "john.doe@example.com",
 
-  "solectwo": "solectwoA",
-  "city": "CityA",
+  "solectwo": "solectwoC",
   "street": "StreetA",
   "houseNumber": "1",
 
@@ -16,14 +15,11 @@ Content-Type: application/json
   "heatingSourcePower": 105,
   "heatingSourceHasGrant": true,
   "heatingSourceGrantYear": 2019,
+  "heatingSourceLastYear": 2020,
 
   "waterHeatingSource": "pompa ciepła",
   "waterHeatingSourcePower": 200,
-  "waterHeatingSourceHasGrant": true,
-  "waterHeatingSourceGrantYear": 2012,
-
-  "isInterested": true,
-  "interestedInYear": 2031
+  "waterHeatingSourceHasGrant": false
 }
 
 ######

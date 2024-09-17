@@ -10,12 +10,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineEmits, watch } from "vue";
-import { yearRules } from "../constants/validationRulesMunicipalHeatingNetwork";
+import { ref, computed, defineEmits, watch } from "vue"
+import { yearRules } from "../constants/validationRulesMunicipalHeatingNetwork"
 
-const emit = defineEmits(["updateMunicipalHeatingInfo"]);
+const emit = defineEmits(["updateMunicipalHeatingInfo"])
 
 const isInterested = ref<any>(undefined);
+
 
 watch([isInterested], () => {
   emit("updateMunicipalHeatingInfo", {
@@ -23,6 +24,7 @@ watch([isInterested], () => {
   });
   console.log("isInterested.value", isInterested.value);
 });
+
 </script>
 
 <style scoped>
