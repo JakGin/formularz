@@ -4,7 +4,7 @@
   >
     <v-row>
       <v-col>
-        <h2>Obecne źródło ogrzewania <br />ciepłej wody</h2>
+        <h2>Obecne źródło ogrzewania ciepłej wody</h2>
       </v-col>
     </v-row>
 
@@ -47,7 +47,7 @@
       <v-col>
         <v-checkbox
           v-model="hasWaterHeatingFunding"
-          label="Czy posiadają Państwo dofinansowanie?"
+          label="Czy posiadają Państwo dofinansowanie na wyżej wymienioną instalację grzewczą?"
         ></v-checkbox>
       </v-col>
     </v-row>
@@ -56,7 +56,7 @@
       <v-col>
         <v-text-field
           v-model="waterHeatingFundingYear"
-          label="Rok otrzymania dofinansowania"
+          label="Rok otrzymania dofinansowania + (w osobnym oknie) Rok trwałości dofinansowania"
           type="number"
           outlined
           :rules="[validateYear]"
