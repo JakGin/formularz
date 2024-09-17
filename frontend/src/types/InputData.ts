@@ -8,14 +8,13 @@ export type TInputData = {
 
     heatingSource: string,
     heatingSourcePower: number,
-    heatingSourceHasGrant: false,
+    heatingSourceHasGrant: boolean,
     heatingSourceGrantYear: number,
 
     waterHeatingSource: string,
     waterHeatingSourcePower: number,
-    waterHeatingSourceHasGrant: false,
+    waterHeatingSourceHasGrant: boolean,
     waterHeatingSourceGrantYear: number,
 
-    isInterested: false,
-    isInterestedInYear: number | null,
+    isInterested: string | boolean | null | undefined,
 }

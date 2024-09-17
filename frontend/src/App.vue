@@ -37,7 +37,6 @@ const updateHotWaterHeatingInfo = (data: any) => {
 
 const updateMinicipalHeatingInfo = (data: any) => {
   formData.value.isInterested = data.isInterested;
-  formData.value.isInterestedInYear = data.isInterestedInYear;
   console.log(formData.value);
 };
 
@@ -89,9 +88,6 @@ const handleSubmit = async (overwrite = false) => {
       ? parseInt(formData.value.waterHeatingSourceGrantYear as any)
       : null,
     isInterested: formData.value.isInterested,
-    interestedInYear: formData.value.isInterestedInYear
-      ? parseInt(formData.value.isInterestedInYear as any)
-      : null,
   };
   console.log(dataToSend);
   console.log(JSON.stringify(dataToSend));
