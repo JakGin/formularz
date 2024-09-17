@@ -146,7 +146,7 @@ const submitUpdate = (wasfilled: boolean) => {
 <template>
   <div class="app">
     <header>
-      <h1 class="app-header-title">Ogrzewanie</h1>
+      <h1 class="app-header-title">Formularz dotyczący ogrzewania</h1>
     </header>
     <main class="app-main-parts">
       <PersonalInfo v-model:formData="formData" />
@@ -179,7 +179,8 @@ const submitUpdate = (wasfilled: boolean) => {
           v-if="wasFilledInThePast"
           prepend-icon="mdi-pencil"
           title="Czy chcesz przesłać formularz ponownie?"
-          text="Dane już istnieją na serwerze. Czy chcesz je nadpisać?"
+          text="Formularz z podanym mailem i adresem został już wypełniony.
+          Czy na pewno chcesz nadpisać wprowadzone dane?"
         >
           <template v-slot:actions>
             <v-spacer></v-spacer>
