@@ -10,6 +10,7 @@ import type { TInputData } from "./types/InputData"
 
 const dialog = ref(false)
 const wasFilledInThePast = ref(false)
+const isSubmittedSuccessfully = ref(false)
 
 const personalInfo = ref({})
 const heatingInfo = ref({})
@@ -48,7 +49,8 @@ const updateMinicipalHeatingInfo = (data: any) => {
 // };
 
 const handleSubmit = async (overwrite = false) => {
-  console.log(JSON.stringify(formData.value, null, 2))
+  console.log(JSON.stringify(formData.value, null, 2));
+  isSubmittedSuccessfully.value = false;
 
   if (
     formData.value.name === "" ||
@@ -120,8 +122,9 @@ const handleSubmit = async (overwrite = false) => {
       }
     } else {
       dialog.value = false;
-      alert("Dziękujemy za wypełnienie formularza.");
       wasFilledInThePast.value = false;
+      // alert("Dziękujemy za wypełnienie formularza.");
+      isSubmittedSuccessfully.value = true;
       // resetData();
     }
   } catch (error) {
@@ -186,9 +189,7 @@ const submitUpdate = (wasfilled: boolean) => {
         >
           <template v-slot:actions>
             <v-spacer></v-spacer>
-
             <v-btn @click="dialog = false"> Nie przesyłaj ponownie </v-btn>
-
             <v-btn @click="submitUpdate(wasFilledInThePast)">
               Zaktualizuj dane
             </v-btn>
@@ -200,6 +201,15 @@ const submitUpdate = (wasfilled: boolean) => {
           <v-card-actions>
             <v-btn @click="dialog = false">Anuluj</v-btn>
             <v-btn @click="submitForm(wasFilledInThePast)">Tak, Prześlij</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="isSubmittedSuccessfully" max-width="500" persistent>
+      <v-card v-if="isSubmittedSuccessfully">
+          <v-card-title>Formularz dotyczący ogrzewania został wysłany!</v-card-title>
+          <v-card-text> Dziękujemy za wypełnienie formularza.</v-card-text>
+          <v-card-actions>
+            <v-btn @click="isSubmittedSuccessfully = false">Zamknij</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
