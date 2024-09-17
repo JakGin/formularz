@@ -1,10 +1,10 @@
 <template>
   <v-container
-    class="mt-10 d-flex flex-column"
+    class="heating-source-form-container d-flex flex-column"
   >
-    <h2 class="justify-start justify-items-start content-start text-left heating-source-form-title">Obecne źródło ogrzewania gospodarstwa domowego</h2>
+    <h2 class="heating-source-form-title">Obecne źródło ogrzewania gospodarstwa domowego</h2>
 
-    <v-row class="mx-auto align-center justify-center text-center" max-width="300">
+    <v-row class="align-center justify-center text-center mx-auto" max-width="300">
       <v-col>
         <v-list density="compact">
           <v-list-subheader>Wybierz źródło ciepła</v-list-subheader>
@@ -104,6 +104,9 @@ watch([selectedItem, installationPower, hasFunding, fundingYear], () => {
 </script>
 
 <style scoped>
+.heating-source-form-container {
+  padding: 0;
+}
 
 .heating-source-form-title {
   font-weight: bold;

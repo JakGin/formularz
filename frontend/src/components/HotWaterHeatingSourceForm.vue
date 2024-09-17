@@ -1,14 +1,10 @@
 <template>
   <v-container
-    class="mt-10 d-flex flex-column align-center justify-center text-center"
+    class="hot-water-heating-source-form-container d-flex flex-column"
   >
-    <v-row>
-      <v-col>
-        <h2>Obecne źródło ogrzewania ciepłej wody</h2>
-      </v-col>
-    </v-row>
+    <h2 class="hot-water-heating-source-form-title">Obecne źródło ogrzewania ciepłej wody</h2>
 
-    <v-row class="mx-auto" max-width="300">
+    <v-row class="align-center justify-center text-center mx-auto" max-width="300">
       <v-col>
         <v-list density="compact">
           <v-list-subheader>Wybierz źródło ogrzewania wody</v-list-subheader>
@@ -113,4 +109,13 @@ watch(
 );
 </script>
 
-<style scoped></style>
+<style scoped>
+.hot-water-heating-source-form-container {
+  padding: 0;
+}
+
+.hot-water-heating-source-form-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+</style>

@@ -229,6 +229,6 @@ const submitUpdate = (wasfilled: boolean) => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
+  gap: 40px;
 }
 </style>
