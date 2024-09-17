@@ -18,8 +18,7 @@ const initData: TInputData = {
     waterHeatingSourceHasGrant: false,
     waterHeatingSourceGrantYear: 0,
 
-    isInterested: false,
-    isInterestedInYear: null,
+    isInterested: undefined,
 }
 
 export default initData;

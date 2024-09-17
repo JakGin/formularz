@@ -38,15 +38,14 @@ const updateHotWaterHeatingInfo = (data: any) => {
 }
 
 const updateMinicipalHeatingInfo = (data: any) => {
-  formData.value.isInterested = data.isInterested
-  formData.value.isInterestedInYear = data.isInterestedInYear
-  console.log(formData.value)
-}
+  formData.value.isInterested = data.isInterested;
+  console.log(formData.value);
+};
 
-const resetData = () => {
-  console.log("Resetting data")
-  Object.assign(formData.value, initData)
-}
+// const resetData = () => {
+//   console.log("Resetting data");
+//   Object.assign(formData.value, initData);
+// };
 
 const handleSubmit = async (overwrite = false) => {
   console.log(JSON.stringify(formData.value, null, 2))
@@ -95,12 +94,9 @@ const handleSubmit = async (overwrite = false) => {
       ? parseInt(formData.value.waterHeatingSourceGrantYear as any)
       : null,
     isInterested: formData.value.isInterested,
-    interestedInYear: formData.value.isInterestedInYear
-      ? parseInt(formData.value.isInterestedInYear as any)
-      : null,
-  }
-  console.log(dataToSend)
-  console.log(JSON.stringify(dataToSend))
+  };
+  console.log(dataToSend);
+  console.log(JSON.stringify(dataToSend));
 
   try {
     const url = `${API_BASE_URL}/form`
@@ -123,10 +119,10 @@ const handleSubmit = async (overwrite = false) => {
         throw new Error(`Błąd serwera: ${response.status}`)
       }
     } else {
-      dialog.value = false
-      alert("Dziękujemy za wypełnienie formularza.")
-      wasFilledInThePast.value = false
-      resetData()
+      dialog.value = false;
+      alert("Dziękujemy za wypełnienie formularza.");
+      wasFilledInThePast.value = false;
+      // resetData();
     }
   } catch (error) {
     console.error("Błąd podczas wysyłania danych: ", error)
@@ -231,6 +227,6 @@ const submitUpdate = (wasfilled: boolean) => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
+  gap: 40px;
 }
 </style>

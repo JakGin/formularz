@@ -18,6 +18,5 @@ export type TInputData = {
   waterHeatingSourceGrantYear: number
   waterHeatingSourceLastYear: number
 
-  isInterested: false
-  isInterestedInYear: number | null
+  isInterested: string | boolean | null | undefined,
 }

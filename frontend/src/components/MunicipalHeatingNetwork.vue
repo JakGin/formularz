@@ -1,10 +1,11 @@
 <template>
   <div>
     <h2 class="municipal-heating-network-title">Gminna Sieć Ciepłownicza</h2>
-    <v-checkbox
-      v-model="isInterested"
-      label="Czy jesteś zainteresowany podłączeniem się do gminnej sieci ciepłowniczej?"
-    />
+    <v-radio-group v-model="isInterested" required aria-required="true" label="Czy jesteś zainteresowany podłączeniem się do gminnej sieci ciepłowniczej?">
+      <v-radio label="Tak" value="tak"></v-radio>
+      <v-radio label="Nie" value="nie"></v-radio>
+      <v-radio label="Nie wiem" value="nieWiem"></v-radio>
+    </v-radio-group>
   </div>
 </template>
 
@@ -14,15 +15,16 @@ import { yearRules } from "../constants/validationRulesMunicipalHeatingNetwork"
 
 const emit = defineEmits(["updateMunicipalHeatingInfo"])
 
-const isInterested = ref<boolean>(false)
-const isInterestedInYear = ref<number | null>(null)
+const isInterested = ref<any>(undefined);
 
-watch([isInterested, isInterestedInYear], () => {
+
+watch([isInterested], () => {
   emit("updateMunicipalHeatingInfo", {
-    isInterested: isInterested.value,
-    isInterestedInYear: isInterestedInYear.value,
-  })
-})
+    isInterested: isInterested.value === "tak" ? true : (isInterested.value === "nie" ? false : null),
+  });
+  console.log("isInterested.value", isInterested.value);
+});
+
 </script>
 
 <style scoped>
