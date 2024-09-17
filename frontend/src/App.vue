@@ -40,10 +40,10 @@ const updateMinicipalHeatingInfo = (data: any) => {
   console.log(formData.value);
 };
 
-const resetData = () => {
-  console.log("Resetting data");
-  Object.assign(formData.value, initData);
-};
+// const resetData = () => {
+//   console.log("Resetting data");
+//   Object.assign(formData.value, initData);
+// };
 
 const handleSubmit = async (overwrite = false) => {
   console.log(JSON.stringify(formData.value, null, 2));
@@ -116,7 +116,7 @@ const handleSubmit = async (overwrite = false) => {
       dialog.value = false;
       alert("Dziękujemy za wypełnienie formularza.");
       wasFilledInThePast.value = false;
-      resetData();
+      // resetData();
     }
   } catch (error) {
     console.error("Błąd podczas wysyłania danych: ", error);
