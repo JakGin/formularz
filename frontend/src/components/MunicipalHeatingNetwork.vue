@@ -5,31 +5,24 @@
       v-model="isInterested"
       label="Czy jesteś zainteresowany podłączeniem się do gminnej sieci ciepłowniczej?"
     />
-    <v-text-field
-      v-if="isInterested"
-      v-model="isInterestedInYear"
-      :rules="yearRules"
-      label="Rok planowanego dołączenia"
-      required
-    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineEmits, watch } from "vue";
-import { yearRules } from "../constants/validationRulesMunicipalHeatingNetwork";
+import { ref, computed, defineEmits, watch } from "vue"
+import { yearRules } from "../constants/validationRulesMunicipalHeatingNetwork"
 
-const emit = defineEmits(["updateMunicipalHeatingInfo"]);
+const emit = defineEmits(["updateMunicipalHeatingInfo"])
 
-const isInterested = ref<boolean>(false);
-const isInterestedInYear = ref<number | null>(null);
+const isInterested = ref<boolean>(false)
+const isInterestedInYear = ref<number | null>(null)
 
 watch([isInterested, isInterestedInYear], () => {
   emit("updateMunicipalHeatingInfo", {
     isInterested: isInterested.value,
     isInterestedInYear: isInterestedInYear.value,
-  });
-});
+  })
+})
 </script>
 
 <style scoped>
