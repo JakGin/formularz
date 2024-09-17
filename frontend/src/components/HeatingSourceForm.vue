@@ -1,14 +1,10 @@
 <template>
   <v-container
-    class="mt-10 d-flex flex-column align-center justify-center text-center"
+    class="mt-10 d-flex flex-column"
   >
-    <v-row>
-      <v-col>
-        <h2>Obecne źródło ogrzewania <br />gospodarstwa domowego</h2>
-      </v-col>
-    </v-row>
+    <h2 class="justify-start justify-items-start content-start text-left heating-source-form-title">Obecne źródło ogrzewania gospodarstwa domowego</h2>
 
-    <v-row class="mx-auto" max-width="300">
+    <v-row class="mx-auto align-center justify-center text-center" max-width="300">
       <v-col>
         <v-list density="compact">
           <v-list-subheader>Wybierz źródło ciepła</v-list-subheader>
@@ -47,7 +43,7 @@
       <v-col>
         <v-checkbox
           v-model="hasFunding"
-          label="Czy posiadają Państwo dofinansowanie?"
+          label="Czy posiadają Państwo dofinansowanie na wyżej wymienioną instalację grzewczą?"
         ></v-checkbox>
       </v-col>
     </v-row>
@@ -56,7 +52,7 @@
       <v-col>
         <v-text-field
           v-model="fundingYear"
-          label="Rok otrzymania dofinansowania"
+          label="Rok otrzymania dofinansowania + (w osobnym oknie) Rok trwałości dofinansowania"
           type="number"
           outlined
           :rules="[validateYear]"
@@ -107,4 +103,10 @@ watch([selectedItem, installationPower, hasFunding, fundingYear], () => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.heating-source-form-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+</style>
