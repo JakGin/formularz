@@ -179,7 +179,12 @@ const submitUpdate = (wasfilled: boolean) => {
     </div>
 
     <div class="text-center pa-4">
-      <v-dialog v-model="dialog" max-width="500" persistent>
+      <v-dialog 
+        v-model="dialog" 
+        max-width="500" 
+        persistent
+        transition="dialog-top-transition"
+      >
         <v-card
           v-if="wasFilledInThePast"
           prepend-icon="mdi-pencil"
@@ -204,8 +209,13 @@ const submitUpdate = (wasfilled: boolean) => {
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="isSubmittedSuccessfully" max-width="500" persistent>
-      <v-card v-if="isSubmittedSuccessfully">
+      <v-dialog 
+        v-model="isSubmittedSuccessfully" 
+        max-width="500" 
+        persistent 
+        transition="dialog-bottom-transition"
+      >
+        <v-card v-if="isSubmittedSuccessfully">
           <v-card-title>Formularz dotyczący ogrzewania został wysłany!</v-card-title>
           <v-card-text> Dziękujemy za wypełnienie formularza.</v-card-text>
           <v-card-actions>
