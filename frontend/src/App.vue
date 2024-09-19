@@ -79,7 +79,7 @@ const handleSubmit = async (overwrite = false) => {
     surname: formData.value.lastname,
     email: formData.value.email,
     solectwo: formData.value.solectwo,
-    street: formData.value.street,
+    street: formData.value.street ? formData.value.street : null,
     houseNumber: formData.value.homeNumber,
     heatingSource: formData.value.heatingSource,
     heatingSourcePower: parseFloat(formData.value.heatingSourcePower as any),
