@@ -35,7 +35,7 @@ app.get("/api/streets", async (req, res) => {
     const streets = await prisma.street.findMany({
       where: {
         solectwo: {
-          name: solectwo.toUpperCase(),
+          name: solectwo,
         },
       },
       select: {

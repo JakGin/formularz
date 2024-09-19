@@ -11,7 +11,7 @@ INSERT INTO "Solectwo" (name) VALUES ('Jarosty');
 INSERT INTO "Solectwo" (name) VALUES ('Karlin');
 INSERT INTO "Solectwo" (name) VALUES ('Kiełczówka');
 INSERT INTO "Solectwo" (name) VALUES ('Kosów');
-INSERT INTO "Solectwo" (name) VALUES ('Michałów');
+INSERT INTO "Solectwo" (name) VALUES ('Michałów');  
 INSERT INTO "Solectwo" (name) VALUES ('Moszczenica');
 INSERT INTO "Solectwo" (name) VALUES ('Wola Moszczenicka');
 INSERT INTO "Solectwo" (name) VALUES ('Podolin');
