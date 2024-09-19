@@ -40,6 +40,21 @@ INSERT INTO "Street" ("name", "solectwoId") VALUES ('Wąska', (SELECT id FROM "S
 INSERT INTO "Street" ("name", "solectwoId") VALUES ('Wolborska', (SELECT id FROM "Solectwo" WHERE name = 'BABY'));
 INSERT INTO "Street" ("name", "solectwoId") VALUES ('Zielona', (SELECT id FROM "Solectwo" WHERE name = 'BABY'));
 
+-- GAJKOWICE
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Chmielna', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Łąkowa', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Łódzka', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Południowa', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Poprzeczna', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Północna', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Rybacka', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Słoneczna', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Spadowa', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Strażacka', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Szkolna', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Wąska', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+INSERT INTO "Street" ("name", "solectwoId") VALUES ('Złota', (SELECT id FROM "Solectwo" WHERE name = 'Gajkowice'));
+
 -- JAROSTY
 INSERT INTO "Street" ("name", "solectwoId") VALUES ('Kolejowa', (SELECT id FROM "Solectwo" WHERE name = 'JAROSTY'));
 INSERT INTO "Street" ("name", "solectwoId") VALUES ('Kwiatowa', (SELECT id FROM "Solectwo" WHERE name = 'JAROSTY'));
