@@ -1,5 +1,5 @@
 -- Locations
-INSERT INTO "Solectwo" (name) VALUES ('BABY'); ///
+INSERT INTO "Solectwo" (name) VALUES ('BABY');
 INSERT INTO "Solectwo" (name) VALUES ('BIAŁKOWICE');
 INSERT INTO "Solectwo" (name) VALUES ('GAJKOWICE');
 INSERT INTO "Solectwo" (name) VALUES ('GAZOMIA NOWA');
@@ -7,7 +7,7 @@ INSERT INTO "Solectwo" (name) VALUES ('GAZOMIA STARA');
 INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE PIERWSZE');
 INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE DRUGIE');
 INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE DRUGIE - POWĘZINY');
-INSERT INTO "Solectwo" (name) VALUES ('JAROSTY');  ///
+INSERT INTO "Solectwo" (name) VALUES ('JAROSTY');
 INSERT INTO "Solectwo" (name) VALUES ('KARLIN');
 INSERT INTO "Solectwo" (name) VALUES ('KIEŁCZÓWKA');
 INSERT INTO "Solectwo" (name) VALUES ('KOSÓW');
