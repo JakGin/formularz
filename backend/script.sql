@@ -1,26 +1,26 @@
 -- Locations
-INSERT INTO "Solectwo" (name) VALUES ('BABY');
-INSERT INTO "Solectwo" (name) VALUES ('BIAŁKOWICE');
-INSERT INTO "Solectwo" (name) VALUES ('GAJKOWICE');
-INSERT INTO "Solectwo" (name) VALUES ('GAZOMIA NOWA');
-INSERT INTO "Solectwo" (name) VALUES ('GAZOMIA STARA');
-INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE PIERWSZE');
-INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE DRUGIE');
-INSERT INTO "Solectwo" (name) VALUES ('GOŚCIMOWICE DRUGIE - POWĘZINY');
-INSERT INTO "Solectwo" (name) VALUES ('JAROSTY');
-INSERT INTO "Solectwo" (name) VALUES ('KARLIN');
-INSERT INTO "Solectwo" (name) VALUES ('KIEŁCZÓWKA');
-INSERT INTO "Solectwo" (name) VALUES ('KOSÓW');
-INSERT INTO "Solectwo" (name) VALUES ('MICHAŁÓW');
-INSERT INTO "Solectwo" (name) VALUES ('MOSZCZENICA');
-INSERT INTO "Solectwo" (name) VALUES ('WOLA MOSZCZENICKA');
-INSERT INTO "Solectwo" (name) VALUES ('PODOLIN');
-INSERT INTO "Solectwo" (name) VALUES ('POMYKÓW');
-INSERT INTO "Solectwo" (name) VALUES ('RACIBOROWICE');
-INSERT INTO "Solectwo" (name) VALUES ('RAKÓW');
-INSERT INTO "Solectwo" (name) VALUES ('RĘKORAJ');
-INSERT INTO "Solectwo" (name) VALUES ('SIEROSŁAW');
-INSERT INTO "Solectwo" (name) VALUES ('SROCK');
+INSERT INTO "Solectwo" (name) VALUES ('Baby');
+INSERT INTO "Solectwo" (name) VALUES ('Białkowice');
+INSERT INTO "Solectwo" (name) VALUES ('Gajkowice');
+INSERT INTO "Solectwo" (name) VALUES ('Gazomia Nowa');
+INSERT INTO "Solectwo" (name) VALUES ('Gazomia Stara');
+INSERT INTO "Solectwo" (name) VALUES ('Gościmowice Pierwsze');
+INSERT INTO "Solectwo" (name) VALUES ('Gościmowice Drugie');
+INSERT INTO "Solectwo" (name) VALUES ('Gościmowice Drugie - Powęziny');
+INSERT INTO "Solectwo" (name) VALUES ('Jarosty');
+INSERT INTO "Solectwo" (name) VALUES ('Karlin');
+INSERT INTO "Solectwo" (name) VALUES ('Kiełczówka');
+INSERT INTO "Solectwo" (name) VALUES ('Kosów');
+INSERT INTO "Solectwo" (name) VALUES ('Michałów');
+INSERT INTO "Solectwo" (name) VALUES ('Moszczenica');
+INSERT INTO "Solectwo" (name) VALUES ('Wola Moszczenicka');
+INSERT INTO "Solectwo" (name) VALUES ('Podolin');
+INSERT INTO "Solectwo" (name) VALUES ('Pomyków');
+INSERT INTO "Solectwo" (name) VALUES ('Raciborowice');
+INSERT INTO "Solectwo" (name) VALUES ('Raków');
+INSERT INTO "Solectwo" (name) VALUES ('Rękoraj');
+INSERT INTO "Solectwo" (name) VALUES ('Sierosław');
+INSERT INTO "Solectwo" (name) VALUES ('Srock');
 
 -- Streets
 -- BABY
