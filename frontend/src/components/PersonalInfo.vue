@@ -37,8 +37,6 @@
         :loading="loadingStreets"
         label="Ulica"
         clearable
-        required
-        :rules="streetRules"
       />
       <v-text-field
         v-model="localFormData.homeNumber"
@@ -56,7 +54,7 @@ import { ref, watch, computed } from "vue";
 import { PropType } from "vue";
 import useSolectwa from '../composables/useSolectwa';
 import useStreets from '../composables/useStreets';
-import { nameRules, lastnameRules, emailRules, homeNumberRules, solectwoRules, streetRules } from '../constants/validationRulesPersonalInfo';
+import { nameRules, lastnameRules, emailRules, homeNumberRules, solectwoRules } from '../constants/validationRulesPersonalInfo';
 
 const props = defineProps({
   formData: {
