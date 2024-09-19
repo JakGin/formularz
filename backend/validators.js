@@ -37,7 +37,7 @@ export const validateData = async (data) => {
   if (!solectwo || !houseNumber) {
     return {
       isDataValid: false,
-      errorMessage: "Solectwo, street and house number are required",
+      errorMessage: "Solectwo and house number are required",
     }
   }
 
@@ -124,7 +124,7 @@ export const validateUpdateData = async (data) => {
   if (!solectwo || !houseNumber) {
     return {
       isDataValid: false,
-      errorMessage: "Solectwo, street and house number are required",
+      errorMessage: "Solectwo and house number are required",
     }
   }
 
